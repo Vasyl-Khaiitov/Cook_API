@@ -9,7 +9,8 @@ import { errorHandler } from './middlewares/errorHandler.js';
 import authRouter from './routers/authRouter.js';
 import cookieParser from 'cookie-parser';
 import { swaggerDocs } from './middlewares/swaggerDocs.js';
-
+import { auth } from './middlewares/auth.js';
+import usersRoutes from './routes/usersRoutes.js';
 dotenv.config();
 
 const PORT = Number(getEnvVar('PORT', '3030'));
@@ -21,6 +22,7 @@ export const startServer = () => {
   app.use(cookieParser());
   app.use(cors());
   app.use('/api-docs', swaggerDocs());
+  app.use('/api/users',auth, usersRoutes);
 
   app.use('/api/auth', authRouter);
 
