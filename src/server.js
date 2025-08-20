@@ -4,6 +4,8 @@ import dotenv from 'dotenv';
 import cors from 'cors';
 
 import { getEnvVar } from './utils/getEnvVar.js';
+import categoriesRouter from './routers/categories.js';
+import ingredientsRouter from './routers/ingredients.js';
 
 dotenv.config();
 
@@ -22,6 +24,9 @@ export const startServer = () => {
       },
     }),
   );
+
+  app.use('/categories', categoriesRouter);
+  app.use('/ingredients', ingredientsRouter);
 
   app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
