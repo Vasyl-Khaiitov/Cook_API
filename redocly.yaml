@@ -1,0 +1,10 @@
+apis:
+  sample@v1:
+    root: docs/openapi.yaml
+extends:
+  - recommended
+rules:
+  no-unused-components: error
+theme:
+  openapi:
+    htmlTemplate: ./docs/index.html

@@ -2,12 +2,33 @@
   "name": "cook_api",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint": "eslint src/**/*.js",
+    "start": "node ./src/index.js",
+    "dev": "nodemon src/index.js",
+    "build": "npm run build-docs",
+    "build-docs": "redocly bundle docs/openapi.yaml --ext json -o docs/swagger.json",
+    "preview-docs": "redocly preview"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "commonjs"
+  "type": "module",
+  "devDependencies": {
+    "@eslint/js": "^9.33.0",
+    "@redocly/cli": "^2.0.6",
+    "eslint": "^9.33.0",
+    "globals": "^16.3.0",
+    "nodemon": "^3.1.10",
+    "pino-pretty": "^13.1.1"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.1",
+    "express": "^5.1.0",
+    "mongodb": "^6.18.0",
+    "mongoose": "^8.17.2",
+    "pino-http": "^10.5.0"
+  }
 }
