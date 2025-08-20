@@ -1,0 +1,32 @@
+description: Created
+content:
+  application/json:
+    schema:
+      type: object
+      required:
+        - status
+        - message
+        - data
+      properties:
+        status:
+          type: integer
+          example: 201
+        message:
+          type: string
+          example: Successfully registered a user!
+        data:
+          type: object
+          required:
+            - _id
+            - name
+            - email
+          properties:
+            _id:
+              type: string
+              example: 66cf9e011ecc457ea69ab77d
+            name:
+              type: string
+              example: "Gigi Hadid"
+            email:
+              type: string
+              example: gigihadid@model.com
