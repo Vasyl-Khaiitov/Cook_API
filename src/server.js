@@ -6,7 +6,6 @@ import cors from 'cors';
 import { getEnvVar } from './utils/getEnvVar.js';
 import categoriesRouter from './routers/categories.js';
 import ingredientsRouter from './routers/ingredients.js';
-import recipesRouter from './routers/recipes.js';
 import { notFoundHandler } from './middlewares/notFoundHandler.js';
 import { errorHandler } from './middlewares/errorHandler.js';
 import authRouter from './routers/authRouter.js';
@@ -39,7 +38,6 @@ export const startServer = () => {
 
   app.use('/categories', categoriesRouter);
   app.use('/ingredients', ingredientsRouter);
-  app.use('/recipes', recipesRouter);
   app.use(notFoundHandler);
   app.use(errorHandler);
 
