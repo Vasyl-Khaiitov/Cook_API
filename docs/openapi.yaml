@@ -30,9 +30,8 @@ servers:
 paths:
   /auth/register:
     post:
-      $ref: ../src/swagger/paths/auth/register/post.yaml
-      
-paths:
+      $ref: ../src/swagger/paths/auth/register/post.yaml      
+
   # /auth/login:
   #   post:
   #     $ref: ../swagger/paths/auth/login/post.yaml
@@ -42,7 +41,8 @@ paths:
   # /auth/logout:
   #   post:
   #     $ref: ../swagger/paths/auth/logout/post.yaml
-    /categories:
+paths:
+   /categories:
     get:
       $ref: .../swagger/paths/categories/get.yaml
 paths:
