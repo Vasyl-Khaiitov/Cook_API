@@ -6,6 +6,11 @@ import cors from 'cors';
 import { getEnvVar } from './utils/getEnvVar.js';
 import categoriesRouter from './routers/categories.js';
 import ingredientsRouter from './routers/ingredients.js';
+import { notFoundHandler } from './middlewares/notFoundHandler.js';
+import { errorHandler } from './middlewares/errorHandler.js';
+import authRouter from './routers/authRouter.js';
+import cookieParser from 'cookie-parser';
+import { swaggerDocs } from './middlewares/swaggerDocs.js';
 
 dotenv.config();
 
@@ -15,7 +20,11 @@ export const startServer = () => {
   const app = express();
 
   app.use(express.json());
+  app.use(cookieParser());
   app.use(cors());
+  app.use('/api-docs', swaggerDocs());
+
+  app.use('/api/auth', authRouter);
 
   app.use(
     pino({
@@ -27,6 +36,8 @@ export const startServer = () => {
 
   app.use('/categories', categoriesRouter);
   app.use('/ingredients', ingredientsRouter);
+  app.use(notFoundHandler);
+  app.use(errorHandler);
 
   app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
