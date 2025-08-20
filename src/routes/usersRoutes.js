@@ -7,4 +7,5 @@ const router = express.Router();
 router.get('/', ctrlWrapper(getUserInfoController));
 
 router.get('/:userId/favorites', ctrlWrapper(recipesFavoriteController));
+
 export default router;
