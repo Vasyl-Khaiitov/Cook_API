@@ -33,13 +33,6 @@ paths:
       $ref: ../src/swagger/paths/auth/register/post.yaml
       
 paths:
-  /categories:
-    get:
-      $ref: .../swagger/paths/categories/get.yaml
-paths:
-  /ingredients:
-    get:
-      $ref: '.../swagger/paths/ingredients/get.yaml'
   # /auth/login:
   #   post:
   #     $ref: ../swagger/paths/auth/login/post.yaml
@@ -49,6 +42,13 @@ paths:
   # /auth/logout:
   #   post:
   #     $ref: ../swagger/paths/auth/logout/post.yaml
+    /categories:
+    get:
+      $ref: .../swagger/paths/categories/get.yaml
+paths:
+  /ingredients:
+    get:
+      $ref: '.../swagger/paths/ingredients/get.yaml'
 components:
   securitySchemes:
     bearerAuth:
