@@ -7,9 +7,10 @@ export const initMongoDB = async () => {
     const user = getEnvVar('MONGODB_USER');
     const pwd = getEnvVar('MONGODB_PASSWORD');
     const url = getEnvVar('MONGODB_URL');
+    const db = getEnvVar('MONGODB_DB');
 
     await mongoose.connect(
-      `mongodb+srv://${user}:${pwd}@${url}/?retryWrites=true&w=majority&appName=ClusterCookRecipes`,
+      `mongodb+srv://${user}:${pwd}@${url}/${db}?retryWrites=true&w=majority&appName=ClusterCookRecipes`,
     );
     console.log('Mongo connection successfully established!');
   } catch (e) {
