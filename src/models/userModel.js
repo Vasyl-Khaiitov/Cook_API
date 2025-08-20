@@ -11,7 +11,7 @@ const usersSchema = new Schema(
     },
 
     password: { type: String, required: true },
-    favorites: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Recipe' }],
+    favorites: [{ type: mongoose.Schema.Types.ObjectId, ref: 'recipes' }],
     myRecipes: [{ type: Schema.Types.ObjectId, ref: 'Recipe' }],
   },
   { timestamps: true, versionKey: false },

@@ -24,7 +24,7 @@ export const startServer = () => {
   app.use(cookieParser());
   app.use(cors());
   app.use('/api-docs', swaggerDocs());
-  app.use('/api/users',auth, usersRoutes);
+  app.use('/api/users', auth, usersRoutes);
 
   app.use('/api/auth', authRouter);
 
