@@ -1,0 +1,67 @@
+tags:
+  - Auth
+summary: User registration
+operationId: registerUser
+description: |
+  **User Registration**
+
+  Creates a new user account in the system.  
+  The user must provide their full name, a valid and unique email address, a secure password,  
+  and confirm acceptance of the privacy policy.  
+
+  ### Notes
+  - All fields are required.
+  - Passwords should be at least 8 characters and include letters, numbers, and symbols.
+  - A unique email is required for each account.
+  - On success, an access token is returned for authenticated requests.
+security: []
+requestBody:
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - name
+          - email
+          - password
+        properties:
+          name:
+            type: string
+            description: "The user's name"
+            example: Gigi Hadid
+          email:
+            type: string
+            description: "The user's email"
+            example: gigihadid@model.com
+          password:
+            type: string
+            description: "The user's password"
+            example: BestModel111
+responses:
+  "201":
+    description: User created successfully
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 201
+            message:
+              type: string
+              example: "User created successfully"
+            data:
+              type: object
+              required:
+                - accessToken
+              properties:
+                accessToken:
+                  type: string
+                  example: "bIHHDtBrjM3x61fcXQWrBiB0vvA/Fu0Z25YLbpAm"
+  "409":
+    $ref: "../../../components/responses/409.yaml"
