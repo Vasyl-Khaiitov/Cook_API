@@ -1,0 +1,70 @@
+tags:
+  - Auth
+summary: User login
+operationId: loginUser
+description: |
+  **User Login**
+
+  Allows a registered user to log in by providing their email and password.
+
+  ### Required Fields
+  - **Email**: The email address associated with the account.
+  - **Password**: The account password.
+
+  ### Notes
+  - On success, an access token is returned for authenticating further requests.
+  - No authentication is required to access this endpoint.
+security: []
+requestBody:
+  content:
+    application/json:
+      schema:
+        type: object
+        required:
+          - email
+          - password
+        properties:
+          email:
+            type: string
+            description: "The user's email"
+            example: gigihadid@model.com
+          password:
+            type: string
+            description: "The user's password"
+            example: BestModel111
+responses:
+  "200":
+    description: |
+      **Successfully Logged In**
+
+      The login was successful, and an access token has been provided. Use this token for subsequent authenticated requests.
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 200
+              description: "HTTP status code indicating a successful login"
+            message:
+              type: string
+              example: "Login successfully!"
+              description: "Confirmation message indicating successful login"
+            data:
+              type: object
+              required:
+                - accessToken
+              properties:
+                accessToken:
+                  type: string
+                  example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9"
+                  description: "The access token to be used for authenticated requests"
+  "401":
+    $ref: "../../../components/responses/401.yaml"
+  "500":
+    $ref: "../../../components/responses/500.yaml"

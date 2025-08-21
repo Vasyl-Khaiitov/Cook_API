@@ -133,6 +133,260 @@
           }
         }
       }
+    },
+    "/auth/login": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "User login",
+        "operationId": "loginUser",
+        "description": "**User Login**\n\nAllows a registered user to log in by providing their email and password.\n\n### Required Fields\n- **Email**: The email address associated with the account.\n- **Password**: The account password.\n\n### Notes\n- On success, an access token is returned for authenticating further requests.\n- No authentication is required to access this endpoint.\n",
+        "security": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "email",
+                  "password"
+                ],
+                "properties": {
+                  "email": {
+                    "type": "string",
+                    "description": "The user's email",
+                    "example": "gigihadid@model.com"
+                  },
+                  "password": {
+                    "type": "string",
+                    "description": "The user's password",
+                    "example": "BestModel111"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "**Successfully Logged In**\n\nThe login was successful, and an access token has been provided. Use this token for subsequent authenticated requests.\n",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200,
+                      "description": "HTTP status code indicating a successful login"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Login successfully!",
+                      "description": "Confirmation message indicating successful login"
+                    },
+                    "data": {
+                      "type": "object",
+                      "required": [
+                        "accessToken"
+                      ],
+                      "properties": {
+                        "accessToken": {
+                          "type": "string",
+                          "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9",
+                          "description": "The access token to be used for authenticated requests"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
+    "/auth/refresh": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "Refresh session accessToken",
+        "operationId": "refresh",
+        "description": "Refresh session accessToken",
+        "security": [],
+        "responses": {
+          "200": {
+            "description": "Successfully refreshed a session!",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully refreshed a session!"
+                    },
+                    "data": {
+                      "type": "object",
+                      "required": [
+                        "accessToken"
+                      ],
+                      "properties": {
+                        "accessToken": {
+                          "type": "string",
+                          "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          }
+        }
+      }
+    },
+    "/auth/logout": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "summary": "User logout",
+        "operationId": "logoutUser",
+        "description": "Log out a user",
+        "security": [],
+        "responses": {
+          "204": {
+            "description": "**No Content**\n\nThe user was successfully logged out. There is no content in the response body, only the status code 204 indicating a successful logout.\n",
+            "content": {}
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          }
+        }
+      }
+    },
+    "/categories": {
+      "get": {
+        "tags": [
+          "Categories"
+        ],
+        "summary": "Get list of categories",
+        "operationId": "getCategories",
+        "description": "Get list of all available recipe categories.",
+        "security": [],
+        "responses": {
+          "200": {
+            "description": "Successfully found categories!",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully found categories!"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Category"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
+    "/ingredients": {
+      "get": {
+        "tags": [
+          "Ingredients"
+        ],
+        "summary": "Get list of ingredients",
+        "operationId": "getIngredients",
+        "description": "Get list of all available ingredients.",
+        "security": [],
+        "responses": {
+          "200": {
+            "description": "Successfully found ingredients!",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully found ingredients!"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Ingredients"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
     }
   },
   "components": {
@@ -143,6 +397,106 @@
       }
     },
     "responses": {
+      "401": {
+        "description": "Unauthorized error",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "status",
+                "message",
+                "data"
+              ],
+              "properties": {
+                "status": {
+                  "type": "integer",
+                  "example": 401
+                },
+                "message": {
+                  "type": "string",
+                  "example": "UnauthorizedError"
+                },
+                "data": {
+                  "type": "object",
+                  "required": [
+                    "message"
+                  ],
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Access token expired"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "404": {
+        "description": "Not Found - Session or Authorization header not found",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "status",
+                "message",
+                "data"
+              ],
+              "properties": {
+                "status": {
+                  "type": "integer",
+                  "example": 404,
+                  "description": "HTTP status code"
+                },
+                "message": {
+                  "type": "string",
+                  "example": "NotFoundError",
+                  "description": "Error message indicating that the resource was not found"
+                },
+                "data": {
+                  "type": "object",
+                  "required": [
+                    "message"
+                  ],
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "Session not found",
+                      "description": "Detailed message about the missing session or header"
+                    }
+                  },
+                  "additionalProperties": false
+                }
+              }
+            },
+            "examples": {
+              "no_token": {
+                "summary": "Session not found",
+                "value": {
+                  "status": 404,
+                  "message": "NotFoundError",
+                  "data": {
+                    "message": "Session not found"
+                  }
+                }
+              },
+              "token_expired": {
+                "summary": "Authorization header not found",
+                "value": {
+                  "status": 404,
+                  "message": "NotFoundError",
+                  "data": {
+                    "message": "Authorization header not found"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
       "409": {
         "description": "**Conflict Error (409)**\n\nThis error occurs when there is a conflict with the current state of the resource.\n- In this case, the conflict arises because the `email` provided is already in use by another account.\n",
         "content": {
@@ -181,6 +535,88 @@
                 }
               }
             }
+          }
+        }
+      },
+      "500": {
+        "description": "Internal server error",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "status",
+                "message"
+              ],
+              "properties": {
+                "status": {
+                  "type": "integer",
+                  "example": 500
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Something went wrong on the server."
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "schemas": {
+      "Category": {
+        "type": "object",
+        "required": [
+          "_id",
+          "name"
+        ],
+        "properties": {
+          "_id": {
+            "type": "string",
+            "example": "64a1c2f3a6d4b4c8d9e1a123"
+          },
+          "name": {
+            "type": "string",
+            "example": "Desserts"
+          }
+        }
+      },
+      "Ingredients": {
+        "type": "object",
+        "required": [
+          "_id",
+          "name",
+          "desc"
+        ],
+        "properties": {
+          "_id": {
+            "type": "string",
+            "example": "64a1c2f3a6d4b4c8d9e1a123"
+          },
+          "name": {
+            "type": "string",
+            "example": "Desserts"
+          },
+          "desc": {
+            "type": "string",
+            "example": "Fresh red tomato used in salads and sauces."
+          },
+          "img": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "example": "https://cdn.tasteorama.com/images/tomato.png"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2025-08-20T14:22:15.123Z"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2025-08-20T14:25:45.456Z"
           }
         }
       }

@@ -1,9 +1,9 @@
 import createHttpError from 'http-errors';
-import { UsersCollection } from '../models/userModel.js';
+import { UsersCollection } from '../db/models/userModel.js';
 import bcrypt from 'bcrypt';
 import { generateToken } from '../utils/tokens.js';
 import { createSession } from '../utils/createSession.js';
-import { SessionsCollection } from '../models/sessionModel.js';
+import { SessionsCollection } from '../db/models/sessionModel.js';
 
 export const registerUser = async (payload) => {
   const isUserExisted = await UsersCollection.findOne({ email: payload.email });

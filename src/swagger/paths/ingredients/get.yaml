@@ -3,8 +3,9 @@ tags:
 summary: Get list of ingredients
 operationId: getIngredients
 description: Get list of all available ingredients.
+security: []
 responses:
-  '200':
+  "200":
     description: Successfully found ingredients!
     content:
       application/json:
@@ -24,6 +25,6 @@ responses:
             data:
               type: array
               items:
-                $ref: '../../components/schemas/Ingredients.yaml'
-  '500':
-    $ref: '../../components/responses/500.yaml'
+                $ref: "../../components/schemas/Ingredients.yaml#/"
+  "500":
+    $ref: "../../components/responses/500.yaml"

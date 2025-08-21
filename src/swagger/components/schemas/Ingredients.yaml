@@ -6,22 +6,21 @@ required:
 properties:
   _id:
     type: string
-    example: '64a1c2f3a6d4b4c8d9e1a123'
+    example: "64a1c2f3a6d4b4c8d9e1a123"
   name:
     type: string
-    example: 'Desserts'
+    example: "Desserts"
   desc:
     type: string
-    example: 'Fresh red tomato used in salads and sauces.'
+    example: "Fresh red tomato used in salads and sauces."
   img:
-    type: string
-    nullable: true
-    example: 'https://cdn.tasteorama.com/images/tomato.png'
+    type: [string, "null"]
+    example: "https://cdn.tasteorama.com/images/tomato.png"
   createdAt:
     type: string
     format: date-time
-    example: '2025-08-20T14:22:15.123Z'
+    example: "2025-08-20T14:22:15.123Z"
   updatedAt:
     type: string
     format: date-time
-    example: '2025-08-20T14:25:45.456Z'
+    example: "2025-08-20T14:25:45.456Z"
