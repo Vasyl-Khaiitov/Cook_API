@@ -294,6 +294,65 @@
         }
       }
     },
+    "/recipes/{id}": {
+      "get": {
+        "tags": [
+          "Recipes"
+        ],
+        "summary": "Get recipe by id",
+        "operationId": "getRecipeById",
+        "description": "Get recipe by id",
+        "security": [],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "65ca67e7ae7f10c88b598384"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Get recipe by id",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully found contact with id 65ca67e7ae7f10c88b598384!"
+                    },
+                    "data": {
+                      "type": "object",
+                      "$ref": "#/components/schemas/Recipes"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
     "/categories": {
       "get": {
         "tags": [
@@ -662,6 +721,100 @@
       }
     },
     "schemas": {
+      "Recipes": {
+        "type": "object",
+        "required": [
+          "title",
+          "category",
+          "instructions",
+          "description",
+          "ingredients"
+        ],
+        "properties": {
+          "_id": {
+            "type": "string",
+            "example": "65ca67e7ae7f10c88b598384"
+          },
+          "title": {
+            "type": "string",
+            "maxLength": 64,
+            "example": "Tomato Soup",
+            "description": "Recipe title (max 64 chars, required)"
+          },
+          "description": {
+            "type": "string",
+            "maxLength": 200,
+            "example": "A simple and delicious tomato soup.",
+            "description": "Short description of the recipe (max 200 chars, required)"
+          },
+          "cookiesTime": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 360,
+            "example": 45,
+            "description": "Cooking time in minutes (1 to 360, required)"
+          },
+          "cals": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 10000,
+            "example": 320,
+            "description": "Calories amount (1 to 10000, optional)"
+          },
+          "category": {
+            "type": "string",
+            "example": "Soups",
+            "description": "Category of the recipe (must match existing category, required)"
+          },
+          "ingredients": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string",
+              "description": "Ingredient ID (must exist in ingredients collection)",
+              "example": "65ca70d9ae7f10c88b598399"
+            }
+          },
+          "ingredientAmount": {
+            "type": "integer",
+            "minimum": 2,
+            "maximum": 16,
+            "example": 3,
+            "description": "Number of ingredients (2 to 16, required)"
+          },
+          "instructions": {
+            "type": "string",
+            "maxLength": 1200,
+            "example": "Boil water, add tomatoes, cook for 20 minutes...",
+            "description": "Full cooking instructions (max 1200 chars, required)"
+          },
+          "recipeImg": {
+            "type": "string",
+            "format": "binary",
+            "description": "Recipe image file (max 2Mb, optional)"
+          },
+          "owner": {
+            "type": "string",
+            "description": "User ID who created the recipe",
+            "example": "65c99e3f9a9f1c87b1234567"
+          },
+          "area": {
+            "type": "string",
+            "description": "Reference to area ID",
+            "example": "65c99e3f9a9f1c87b7654321"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2025-08-21T10:15:30.000Z"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2025-08-21T10:15:30.000Z"
+          }
+        }
+      },
       "Category": {
         "type": "object",
         "required": [

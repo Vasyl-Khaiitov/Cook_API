@@ -40,6 +40,9 @@ paths:
   /auth/logout:
     post:
       $ref: ../src/swagger/paths/auth/logout/post.yaml
+  /recipes/{id}:
+    get:
+      $ref: ../src/swagger/paths/recipes/{id}/get.yaml
 
   /categories:
     get:
@@ -47,6 +50,8 @@ paths:
 
   /ingredients:
     get:
+
+
       $ref: ../src/swagger/paths/ingredients/get.yaml
 
 
