@@ -51,13 +51,15 @@ paths:
   /ingredients:
     get:
 
-
       $ref: ../src/swagger/paths/ingredients/get.yaml
-
+  /api/users:
+    get:
+      $ref: ../src/swagger/paths/users/get.yaml
 
   /recipes/{id}/favorite:
     post:
       $ref: ../src/swagger/paths/recipes/favorite/post.yaml
+
 
 components:
   securitySchemes:

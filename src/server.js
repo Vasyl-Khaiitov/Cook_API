@@ -14,7 +14,7 @@ import authRouter from './routers/authRouter.js';
 import cookieParser from 'cookie-parser';
 import { swaggerDocs } from './middlewares/swaggerDocs.js';
 import { auth } from './middlewares/auth.js';
-import usersRoutes from './routes/usersRoutes.js';
+import usersRoutes from './routers/usersRoutes.js';
 dotenv.config();
 
 const PORT = Number(getEnvVar('PORT', '3030'));

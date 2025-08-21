@@ -1,0 +1,31 @@
+tags:
+  - Users
+summary: Get current user
+operationId: getCurrentUser
+description: Returns data about the currently logged-in user.
+security:
+  - bearerAuth: []   
+responses:
+  "200":
+    description: Successfully found current user!
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: Successfully found current user!
+            data:
+              $ref: "../../components/schemas/User.yaml"
+  "401":
+    $ref: "../../components/responses/401.yaml"
+  "500":
+    $ref: "../../components/responses/500.yaml"
