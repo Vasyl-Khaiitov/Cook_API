@@ -47,7 +47,13 @@ paths:
 
   /ingredients:
     get:
-      $ref: '../src/swagger/paths/ingredients/get.yaml'
+      $ref: ../src/swagger/paths/ingredients/get.yaml
+
+
+  /recipes/{id}/favorite:
+    post:
+      $ref: ../src/swagger/paths/recipes/favorite/post.yaml
+
 components:
   securitySchemes:
     bearerAuth:

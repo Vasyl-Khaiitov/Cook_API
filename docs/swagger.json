@@ -388,70 +388,71 @@
         }
       }
     },
-    "/recipes/my": {
-  "get": {
-    "tags": ["Recipes"],
-    "summary": "Get my recipes",
-    "description": "Отримати список рецептів, створених автентифікованим користувачем.",
-    "operationId": "getMyRecipes",
-    "security": [
-      {
-        "bearerAuth": []
-      }
-    ],
-    "responses": {
-      "200": {
-        "description": "Successfully retrieved user recipes",
-        "content": {
-          "application/json": {
-            "schema": {
-              "type": "object",
-              "required": ["status", "message", "data"],
-              "properties": {
-                "status": {
-                  "type": "integer",
-                  "example": 200
-                },
-                "message": {
-                  "type": "string",
-                  "example": "Successfully found my recipes"
-                },
-                "data": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Recipe"
-                  }
-                }
-              }
-            }
+
+    "/recipes/{id}/favorite": {
+      "post": {
+        "summary": "Add a recipe to user favorites",
+        "operationId": "addRecipeToFavorites",
+        "tags": [
+          "Recipes"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
           }
-        }
-      },
-      "404": {
-        "description": "No recipes found for this user",
-        "content": {
-          "application/json": {
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID of the recipe to add to favorites",
             "schema": {
-              "type": "object",
-              "properties": {
-                "status": { "type": "integer", "example": 404 },
-                "message": { "type": "string", "example": "NotFoundError" },
-                "data": {
+              "type": "string"
+            }
+      
+        ],
+        "responses": {
+          "200": {
+            "description": "Recipe successfully added to favorites",
+            "content": {
+              "application/json": {
+                "schema": {
                   "type": "object",
                   "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
                     "message": {
                       "type": "string",
-                      "example": "You dont have your own recipes"
+                      "example": "Recipe added to favorites"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
                     }
                   }
                 }
               }
             }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "409": {
+            "$ref": "#/components/responses/409"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
           }
         }
-      },
-      "401": { "$ref": "#/components/responses/401" }
-       }
+
       }
     }
   },
@@ -463,6 +464,37 @@
       }
     },
     "responses": {
+      "400": {
+        "description": "Bad Request",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "status",
+                "message",
+                "data"
+              ],
+              "properties": {
+                "status": {
+                  "type": "integer",
+                  "example": 400
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Bad Request"
+                },
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
       "401": {
         "description": "Unauthorized error",
         "content": {
