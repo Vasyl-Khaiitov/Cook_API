@@ -3,20 +3,21 @@ import { calculatePaginationData } from "../utils/calculatePaginationData.js";
 
 
 
-export const getRecipesServices = async ({ page, perPage, filter = {}, userId }) => {
+export const getRecipesServices = async ({ page, perPage, filter = {} }) => {
 
     const limit = perPage;
     const skip = (page - 1) * perPage;
 
-    const recipesQuery = RecipesCollection.find(userId);
+    const recipesQuery = RecipesCollection.find();
 
     if (filter.category) {
         recipesQuery.where('category').equals(filter.category);
     }
 
+
     if (filter.ingredients) {
         recipesQuery.where('ingredients.id').all(filter.ingredients);
-}
+    }
 
 
     if (filter.title) {
@@ -24,7 +25,7 @@ export const getRecipesServices = async ({ page, perPage, filter = {}, userId })
     }
 
 
-    const recipesCount = await RecipesCollection.find().merge(recipesQuery).countDocuments();
+    const recipesCount = await RecipesCollection.countDocuments(recipesQuery.getFilter());
 
     const recipes = await recipesQuery.skip(skip).limit(limit).exec();
 

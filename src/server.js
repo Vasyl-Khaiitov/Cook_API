@@ -7,7 +7,6 @@ import { getEnvVar } from './utils/getEnvVar.js';
 import categoriesRouter from './routers/categories.js';
 import ingredientsRouter from './routers/ingredients.js';
 import recipesRouter from './routers/recipesRouter.js';
-import gyoRecipesRouter from './routers/gyo_recipes.js';
 import { notFoundHandler } from './middlewares/notFoundHandler.js';
 import { errorHandler } from './middlewares/errorHandler.js';
 import authRouter from './routers/authRouter.js';

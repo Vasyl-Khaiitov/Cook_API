@@ -40,6 +40,11 @@ paths:
   /auth/logout:
     post:
       $ref: ../src/swagger/paths/auth/logout/post.yaml
+      
+  /recipes:
+    get:
+      $ref: ../src/swagger/paths/recipes/get.yaml
+
   /recipes/{id}:
     get:
       $ref: ../src/swagger/paths/recipes/{id}/get.yaml
