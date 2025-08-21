@@ -388,6 +388,7 @@
         }
       }
     },
+
     "/recipes/{id}/favorite": {
       "post": {
         "summary": "Add a recipe to user favorites",
@@ -409,7 +410,7 @@
             "schema": {
               "type": "string"
             }
-          }
+      
         ],
         "responses": {
           "200": {
@@ -451,6 +452,7 @@
             "$ref": "#/components/responses/500"
           }
         }
+
       }
     }
   },
