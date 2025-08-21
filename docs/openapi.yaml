@@ -47,7 +47,7 @@ paths:
 
   /ingredients:
     get:
-      $ref: "../src/swagger/paths/ingredients/get.yaml"
+      $ref: '../src/swagger/paths/ingredients/get.yaml'
 components:
   securitySchemes:
     bearerAuth:

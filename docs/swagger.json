@@ -387,6 +387,72 @@
           }
         }
       }
+    },
+    "/recipes/my": {
+  "get": {
+    "tags": ["Recipes"],
+    "summary": "Get my recipes",
+    "description": "Отримати список рецептів, створених автентифікованим користувачем.",
+    "operationId": "getMyRecipes",
+    "security": [
+      {
+        "bearerAuth": []
+      }
+    ],
+    "responses": {
+      "200": {
+        "description": "Successfully retrieved user recipes",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": ["status", "message", "data"],
+              "properties": {
+                "status": {
+                  "type": "integer",
+                  "example": 200
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Successfully found my recipes"
+                },
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Recipe"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "404": {
+        "description": "No recipes found for this user",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": { "type": "integer", "example": 404 },
+                "message": { "type": "string", "example": "NotFoundError" },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "message": {
+                      "type": "string",
+                      "example": "You dont have your own recipes"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "401": { "$ref": "#/components/responses/401" }
+       }
+      }
     }
   },
   "components": {
