@@ -31,24 +31,23 @@ paths:
   /auth/register:
     post:
       $ref: ../src/swagger/paths/auth/register/post.yaml
-  # /auth/login:
-  #   post:
-  #     $ref: ../swagger/paths/auth/login/post.yaml
-  # /auth/refresh:
-  #   post:
-  #     $ref: ../swagger/paths/auth/refresh/post.yaml
-  # /auth/logout:
-  #   post:
-  #     $ref: ../swagger/paths/auth/logout/post.yaml
+  /auth/login:
+    post:
+      $ref: ../src/swagger/paths/auth/login/post.yaml
+  /auth/refresh:
+    post:
+      $ref: ../src/swagger/paths/auth/refresh/post.yaml
+  /auth/logout:
+    post:
+      $ref: ../src/swagger/paths/auth/logout/post.yaml
 
-paths:
   /categories:
     get:
-      $ref: .../swagger/paths/categories/get.yaml
-paths:
+      $ref: ../src/swagger/paths/categories/get.yaml
+
   /ingredients:
     get:
-      $ref: '.../swagger/paths/ingredients/get.yaml'
+      $ref: "../src/swagger/paths/ingredients/get.yaml"
 components:
   securitySchemes:
     bearerAuth:

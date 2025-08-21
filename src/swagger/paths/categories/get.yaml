@@ -2,9 +2,10 @@ tags:
   - Categories
 summary: Get list of categories
 operationId: getCategories
-description: 'Get list of all available recipe categories.'
+description: "Get list of all available recipe categories."
+security: []
 responses:
-  '200':
+  "200":
     description: Successfully found categories!
     content:
       application/json:
@@ -24,6 +25,6 @@ responses:
             data:
               type: array
               items:
-                $ref: '../../components/schemas/Category.yaml'
-'500':
-  $ref: '../../components/responses/500.yaml'
+                $ref: "../../components/schemas/Category.yaml"
+  "500":
+    $ref: "../../components/responses/500.yaml"

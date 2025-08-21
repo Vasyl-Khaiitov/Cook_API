@@ -1,4 +1,4 @@
-import { SessionsCollection } from '../models/sessionModel.js';
+import { SessionsCollection } from '../db/models/sessionModel.js';
 import { FIFTEEN_MINUTES, ONE_DAY } from '../constants/index.js';
 
 export const createSession = async (userId, accessToken, refreshToken) => {
