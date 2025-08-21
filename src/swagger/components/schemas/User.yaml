@@ -1,0 +1,19 @@
+type: object
+required:
+  - id
+  - name
+  - email
+properties:
+  id:
+    type: string
+    description: Unique user ID
+    example: "64e8a6c5f9a5a12b34567890"
+  name:
+    type: string
+    description: User's full name
+    example: John Doe
+  email:
+    type: string
+    format: email
+    description: User's email address
+    example: john.doe@example.com
