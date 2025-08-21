@@ -1,0 +1,44 @@
+type: object
+required:
+  - title
+  - category
+  - instructions
+  - description
+properties:
+  _id:
+    type: string
+    example: '65ca67e7ae7f10c88b598384'
+  title:
+    type: string
+    example: 'Tomato Soup'
+  category:
+    type: string
+    example: 'Soups'
+  owner:
+    type: string
+    description: 'User ID who created the recipe'
+    example: '65c99e3f9a9f1c87b1234567'
+  area:
+    type: string
+    description: 'Reference to area ID'
+    example: '65c99e3f9a9f1c87b7654321'
+  instructions:
+    type: string
+    example: 'Boil water, add tomatoes, cook for 20 minutes...'
+  description:
+    type: string
+    example: 'A simple and delicious tomato soup.'
+  ingredients:
+    type: array
+    items:
+      type: string
+      description: 'Ingredient ID'
+      example: '65ca70d9ae7f10c88b598399'
+  createdAt:
+    type: string
+    format: date-time
+    example: '2025-08-21T10:15:30.000Z'
+  updatedAt:
+    type: string
+    format: date-time
+    example: '2025-08-21T10:15:30.000Z'

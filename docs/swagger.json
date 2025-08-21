@@ -294,6 +294,65 @@
         }
       }
     },
+    "/recipes/{id}": {
+      "get": {
+        "tags": [
+          "Recipes"
+        ],
+        "summary": "Get recipe by id",
+        "operationId": "getRecipeById",
+        "description": "Get recipe by id",
+        "security": [],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "65ca67e7ae7f10c88b598384"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Get recipe by id",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully found contact with id 65ca67e7ae7f10c88b598384!"
+                    },
+                    "data": {
+                      "type": "object",
+                      "$ref": "#/components/schemas/Recipes"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
     "/categories": {
       "get": {
         "tags": [
@@ -564,6 +623,65 @@
       }
     },
     "schemas": {
+      "Recipes": {
+        "type": "object",
+        "required": [
+          "title",
+          "category",
+          "instructions",
+          "description"
+        ],
+        "properties": {
+          "_id": {
+            "type": "string",
+            "example": "65ca67e7ae7f10c88b598384"
+          },
+          "title": {
+            "type": "string",
+            "example": "Tomato Soup"
+          },
+          "category": {
+            "type": "string",
+            "example": "Soups"
+          },
+          "owner": {
+            "type": "string",
+            "description": "User ID who created the recipe",
+            "example": "65c99e3f9a9f1c87b1234567"
+          },
+          "area": {
+            "type": "string",
+            "description": "Reference to area ID",
+            "example": "65c99e3f9a9f1c87b7654321"
+          },
+          "instructions": {
+            "type": "string",
+            "example": "Boil water, add tomatoes, cook for 20 minutes..."
+          },
+          "description": {
+            "type": "string",
+            "example": "A simple and delicious tomato soup."
+          },
+          "ingredients": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "description": "Ingredient ID",
+              "example": "65ca70d9ae7f10c88b598399"
+            }
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2025-08-21T10:15:30.000Z"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2025-08-21T10:15:30.000Z"
+          }
+        }
+      },
       "Category": {
         "type": "object",
         "required": [

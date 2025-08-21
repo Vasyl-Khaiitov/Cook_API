@@ -37,9 +37,9 @@ export const startServer = () => {
     }),
   );
 
-  app.use('/categories', categoriesRouter);
-  app.use('/ingredients', ingredientsRouter);
-  app.use('/recipes', recipesRouter);
+  app.use('/api/categories', categoriesRouter);
+  app.use('/api/ingredients', ingredientsRouter);
+  app.use('/api/recipes', recipesRouter);
   app.use(notFoundHandler);
   app.use(errorHandler);
 
