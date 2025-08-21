@@ -1,16 +1,18 @@
 
 
-const parseNumber = (number, defaultValue) => {
-    
-  if (typeof number !== 'string') return defaultValue;
 
-    const parsedNumber = parseInt(number);
+const parseNumber = (value, defaultValue) => {
     
-  if (Number.isNaN(parsedNumber)) {
+  if (typeof value === 'undefined' || typeof value !== 'string') {
+    return defaultValue;
+  }
+    const parsedValue = parseInt(value);
+    
+  if (Number.isNaN(parsedValue)) {
     return defaultValue;
   }
 
-  return parsedNumber;
+  return parsedValue;
 };
 
 
