@@ -40,6 +40,9 @@ paths:
   /auth/logout:
     post:
       $ref: ../src/swagger/paths/auth/logout/post.yaml
+  /recipes/{id}:
+    get:
+      $ref: ../src/swagger/paths/recipes/{id}/get.yaml
 
   /categories:
     get:
@@ -47,10 +50,17 @@ paths:
 
   /ingredients:
     get:
-      $ref: "../src/swagger/paths/ingredients/get.yaml"
+
+      $ref: ../src/swagger/paths/ingredients/get.yaml
   /api/users:
     get:
-      $ref: "../src/swagger/paths/users/get.yaml"
+      $ref: ../src/swagger/paths/users/get.yaml
+
+  /recipes/{id}/favorite:
+    post:
+      $ref: ../src/swagger/paths/recipes/favorite/post.yaml
+
+
 components:
   securitySchemes:
     bearerAuth:
