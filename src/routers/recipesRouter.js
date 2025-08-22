@@ -5,10 +5,10 @@ import {
   getRecipesController,
   recipesFavoriteController,
   postRecipeController,
-} from '../controllers/recipesController.js'; //21.08.2025
-import { upload } from '../middlewares/multer.js'; //21.08.2025
-import { validateBody } from '../middlewares/validateBody.js'; //21.08.2025
-import { recipeSchema } from '../validation/recipeSchema.js'; //21.08.2025
+} from '../controllers/recipesController.js';
+import { upload } from '../middlewares/multer.js';
+import { validateBody } from '../middlewares/validateBody.js';
+import { recipeSchema } from '../validation/recipeSchema.js';
 import { addRecipeToFavoritesController } from '../controllers/recipesFavorites.js';
 import { auth } from '../middlewares/auth.js';
 

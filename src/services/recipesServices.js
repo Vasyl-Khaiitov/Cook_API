@@ -1,7 +1,6 @@
 import { RecipesCollection } from '../db/models/recipes.js';
 import { calculatePaginationData } from '../utils/calculatePaginationData.js';
 
-//21.08.2025
 export const postRecipe = async (recipeData) => {
   const newRecipe = await RecipesCollection.create(recipeData);
   return newRecipe;

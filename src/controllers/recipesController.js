@@ -3,15 +3,14 @@ import {
   getRecipesServices,
   getRecipeByIdServices,
   getFavoritesRecipesById,
-  postRecipe, //21.08.2025
+  postRecipe,
 } from '../services/recipesServices.js';
 import { parsePaginationParams } from '../utils/parsePaginationParams.js';
 import { parseFilterParams } from '../utils/parseFilterParams.js';
 
-import mongoose from 'mongoose'; //21.08.2025
-import { saveFileToCloudinary } from '../utils/saveFileToCloudinary.js'; //21.08.2025
+import mongoose from 'mongoose';
+import { saveFileToCloudinary } from '../utils/saveFileToCloudinary.js';
 
-//21.08.2025
 const parseMangoObjectId = (id) => {
   if (!mongoose.Types.ObjectId.isValid(id)) {
     throw new Error(`Invalid ObjectId: ${id}`);
@@ -19,7 +18,6 @@ const parseMangoObjectId = (id) => {
   return new mongoose.Types.ObjectId(id);
 };
 
-//21.08.2025
 export const postRecipeController = async (req, res) => {
   const { title, category, area, instructions, description } = req.body;
 

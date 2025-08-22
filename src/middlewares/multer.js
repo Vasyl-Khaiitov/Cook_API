@@ -1,4 +1,4 @@
-import multer from 'multer'; //21.08.2025
+import multer from 'multer';
 
 import { TEMP_UPLOAD_DIR } from '../constants/index.js';
 
