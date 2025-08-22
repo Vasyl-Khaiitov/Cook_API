@@ -13,7 +13,7 @@ import authRouter from './routers/authRouter.js';
 import cookieParser from 'cookie-parser';
 import { swaggerDocs } from './middlewares/swaggerDocs.js';
 import { auth } from './middlewares/auth.js';
-import usersRoutes from './routes/usersRoutes.js';
+import usersRoutes from './routers/usersRoutes.js';
 dotenv.config();
 
 const PORT = Number(getEnvVar('PORT', '3030'));
@@ -37,9 +37,12 @@ export const startServer = () => {
     }),
   );
 
-  app.use('/categories', categoriesRouter);
-  app.use('/ingredients', ingredientsRouter);
-  app.use('/recipes', recipesRouter);
+
+  app.use('/api/categories', categoriesRouter);
+  app.use('/api/ingredients', ingredientsRouter);
+  app.use('/api/recipes', recipesRouter);
+
+  
   app.use(notFoundHandler);
   app.use(errorHandler);
 

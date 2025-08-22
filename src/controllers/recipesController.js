@@ -2,11 +2,11 @@ import createHttpError from 'http-errors';
 import {
   getRecipesServices,
   getRecipeByIdServices,
+  getFavoritesRecipesById,
   postRecipe, //21.08.2025
 } from '../services/recipesServices.js';
 import { parsePaginationParams } from '../utils/parsePaginationParams.js';
 import { parseFilterParams } from '../utils/parseFilterParams.js';
-import { getFavoriteRecipesById } from '../services/recipes.js';
 
 import mongoose from 'mongoose'; //21.08.2025
 import { saveFileToCloudinary } from '../utils/saveFileToCloudinary.js'; //21.08.2025
@@ -89,15 +89,21 @@ export const getRecipeByIdController = async (req, res) => {
 };
 
 export const recipesFavoriteController = async (req, res) => {
-  const { userId } = req.params;
   const { page, perPage } = parsePaginationParams(req.query);
-  const favoriteRecipes = await getFavoriteRecipesById(userId, page, perPage);
-  if (favoriteRecipes === null || favoriteRecipes.length === 0) {
+  const filter = parseFilterParams(req.query);
+
+  const favoriteRecipes = await getFavoritesRecipesById(
+    req.user.id,
+    page,
+    perPage,
+    filter,
+  );
+  if (favoriteRecipes === null) {
     throw new createHttpError.NotFound('Favorite recipes not found');
   }
   res.status(200).json({
     status: 200,
-    message: 'Successfully loaded favorite recipes!',
-    data: favoriteRecipes,
+    message: 'Successfully loaded favorite recipes by user!',
+    ...favoriteRecipes,
   });
 };

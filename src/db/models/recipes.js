@@ -8,6 +8,7 @@ const recipesSchema = new Schema(
     },
     category: {
       type: Schema.Types.ObjectId,
+      required: true,
       ref: 'areas',
     },
     owner: {

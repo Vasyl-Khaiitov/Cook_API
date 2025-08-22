@@ -294,6 +294,282 @@
         }
       }
     },
+    "/recipes": {
+      "get": {
+        "tags": [
+          "Recipes"
+        ],
+        "summary": "Get list of recipes",
+        "operationId": "getRecipesServices",
+        "description": "Get all public recipes",
+        "security": [],
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "schema": {
+              "type": "integer",
+              "example": 1
+            }
+          },
+          {
+            "in": "query",
+            "name": "perPage",
+            "schema": {
+              "type": "integer",
+              "example": 12
+            }
+          },
+          {
+            "in": "query",
+            "name": "categories",
+            "schema": {
+              "type": "string",
+              "example": "Desert"
+            },
+            "description": "Filter recipes by category"
+          },
+          {
+            "in": "query",
+            "name": "ingredients",
+            "schema": {
+              "type": "string",
+              "example": "65ca70d9ae7f10c88b598399,65ca70d9ae7f10c88b5983aa"
+            },
+            "description": "A list of ingredient IDs, to be separated by commas, for filtering recipes"
+          },
+          {
+            "in": "query",
+            "name": "title",
+            "schema": {
+              "type": "string",
+              "example": "Tomato"
+            },
+            "description": "Search recipes by partial match in the title (case-insensitive)"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully found recipes!",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully found recipes!"
+                    },
+                    "data": {
+                      "type": "object",
+                      "required": [
+                        "data",
+                        "page",
+                        "perPage",
+                        "totalItems",
+                        "totalPages",
+                        "hasNextPage",
+                        "hasPreviousPage"
+                      ],
+                      "properties": {
+                        "data": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/Recipes"
+                          }
+                        },
+                        "page": {
+                          "type": "number",
+                          "example": 2
+                        },
+                        "perPage": {
+                          "type": "number",
+                          "example": 4
+                        },
+                        "totalItems": {
+                          "type": "number",
+                          "example": 4
+                        },
+                        "totalPages": {
+                          "type": "number",
+                          "example": 8
+                        },
+                        "hasNextPage": {
+                          "type": "boolean",
+                          "example": false
+                        },
+                        "hasPreviousPage": {
+                          "type": "boolean",
+                          "example": true
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Recipes"
+        ],
+        "summary": "Add own recipe",
+        "operationId": "postRecipes",
+        "description": "Add own recipe",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "title",
+                  "category",
+                  "area",
+                  "ingredients",
+                  "instructions",
+                  "description"
+                ],
+                "properties": {
+                  "title": {
+                    "type": "string",
+                    "description": "Title name",
+                    "example": "Battenberg Cake"
+                  },
+                  "category": {
+                    "type": "string",
+                    "description": "Category ID (Schema.Types.ObjectId)",
+                    "example": "64c8d958249fae54bae90bb9"
+                  },
+                  "area": {
+                    "type": "string",
+                    "description": "Area name",
+                    "example": "British"
+                  },
+                  "instructions": {
+                    "type": "string",
+                    "description": "Instructions",
+                    "example": "Heat oven to 180C/160C fan/gas."
+                  },
+                  "description": {
+                    "type": "string",
+                    "description": "Description",
+                    "example": "A classic British cake"
+                  },
+                  "time": {
+                    "type": "string",
+                    "description": "Time",
+                    "example": "60"
+                  },
+                  "ingredients": {
+                    "type": "string",
+                    "description": "Ingredients (JSON, id - Schema.Types.ObjectId)",
+                    "example": "[{\"id\":\"640c2dd963a319ea671e367e\",\"measure\":\"175g\"}]"
+                  },
+                  "thumb": {
+                    "type": "string",
+                    "format": "binary",
+                    "description": "Photo"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/200"
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          }
+        }
+      }
+    },
+    "/recipes/{id}": {
+      "get": {
+        "tags": [
+          "Recipes"
+        ],
+        "summary": "Get recipe by id",
+        "operationId": "getRecipeById",
+        "description": "Get recipe by id",
+        "security": [],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "65ca67e7ae7f10c88b598384"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Get recipe by id",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully found contact with id 65ca67e7ae7f10c88b598384!"
+                    },
+                    "data": {
+                      "type": "object",
+                      "$ref": "#/components/schemas/Recipes"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
     "/categories": {
       "get": {
         "tags": [
@@ -387,6 +663,246 @@
           }
         }
       }
+    },
+    "/api/users": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Get current user",
+        "operationId": "getCurrentUser",
+        "description": "Returns data about the currently logged-in user.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully found current user!",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully found current user!"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/User"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
+    "/recipes/{id}/favorite": {
+      "post": {
+        "summary": "Add a recipe to user favorites",
+        "operationId": "addRecipeToFavorites",
+        "tags": [
+          "Recipes"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID of the recipe to add to favorites",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Recipe successfully added to favorites",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Recipe added to favorites"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "409": {
+            "$ref": "#/components/responses/409"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
+    "/recipes/{id}/favorites": {
+      "get": {
+        "tags": [
+          "Recipes"
+        ],
+        "summary": "Get fevorites recipe by userId",
+        "operationId": "getFavoritesRecipesById",
+        "description": "Get fevorites recipe by userId",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "65ca67e7ae7f10c88b598384"
+            }
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "required": false,
+            "schema": {
+              "type": "number",
+              "example": 1
+            }
+          },
+          {
+            "in": "query",
+            "name": "perPage",
+            "required": false,
+            "schema": {
+              "type": "number",
+              "example": 12
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully loaded favorite recipes by user!",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully found contact with id 65ca67e7ae7f10c88b598384!"
+                    },
+                    "data": {
+                      "type": "object",
+                      "required": [
+                        "recipes",
+                        "total",
+                        "page",
+                        "perPage",
+                        "totalPage",
+                        "hasNextPage",
+                        "hasPreviousPage"
+                      ],
+                      "properties": {
+                        "recipes": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/Recipes"
+                          }
+                        },
+                        "page": {
+                          "type": "number",
+                          "example": 1
+                        },
+                        "perPage": {
+                          "type": "number",
+                          "example": 10
+                        },
+                        "total": {
+                          "type": "number",
+                          "example": 100
+                        },
+                        "totalPage": {
+                          "type": "number",
+                          "example": 10
+                        },
+                        "hasNextPage": {
+                          "type": "boolean",
+                          "example": false
+                        },
+                        "hasPreviousPage": {
+                          "type": "boolean",
+                          "example": false
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
     }
   },
   "components": {
@@ -397,6 +913,129 @@
       }
     },
     "responses": {
+      "200": {
+        "description": "Successful response",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "integer",
+                  "example": 200
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Successfully call postRecipe Controller!"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "_id": {
+                      "type": "string",
+                      "example": "68a846f9a0ded7df9882570e"
+                    },
+                    "title": {
+                      "type": "string",
+                      "example": "Test1. Battenberg Cake"
+                    },
+                    "category": {
+                      "type": "string",
+                      "example": "64c8d958249fae54bae90bb9"
+                    },
+                    "owner": {
+                      "type": "string",
+                      "example": "68a6e49aa790449984980dcf"
+                    },
+                    "area": {
+                      "type": "string",
+                      "example": "British"
+                    },
+                    "instructions": {
+                      "type": "string",
+                      "example": "Heat oven to 180C/160C fan/gas."
+                    },
+                    "description": {
+                      "type": "string",
+                      "example": "A classic British cake"
+                    },
+                    "thumb": {
+                      "type": "string",
+                      "format": "uri",
+                      "example": "https://res.cloudinary.com/reafmyq8k/image/upload/v1755858681/xab9dcq8npt7ql0mlza0.png"
+                    },
+                    "time": {
+                      "type": "string",
+                      "example": "60"
+                    },
+                    "ingredients": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string",
+                            "example": "640c2dd963a319ea671e367e"
+                          },
+                          "measure": {
+                            "type": "string",
+                            "example": "175g"
+                          },
+                          "_id": {
+                            "type": "string",
+                            "example": "68a846f9a0ded7df9882570f"
+                          }
+                        }
+                      }
+                    },
+                    "createdAt": {
+                      "type": "string",
+                      "format": "date-time",
+                      "example": "2025-08-22T10:31:21.550Z"
+                    },
+                    "updatedAt": {
+                      "type": "string",
+                      "format": "date-time",
+                      "example": "2025-08-22T10:31:21.550Z"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "400": {
+        "description": "Bad Request",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "required": [
+                "status",
+                "message",
+                "data"
+              ],
+              "properties": {
+                "status": {
+                  "type": "integer",
+                  "example": 400
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Bad Request"
+                },
+                "data": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
       "401": {
         "description": "Unauthorized error",
         "content": {
@@ -564,6 +1203,100 @@
       }
     },
     "schemas": {
+      "Recipes": {
+        "type": "object",
+        "required": [
+          "title",
+          "category",
+          "instructions",
+          "description",
+          "ingredients"
+        ],
+        "properties": {
+          "_id": {
+            "type": "string",
+            "example": "65ca67e7ae7f10c88b598384"
+          },
+          "title": {
+            "type": "string",
+            "maxLength": 64,
+            "example": "Tomato Soup",
+            "description": "Recipe title (max 64 chars, required)"
+          },
+          "description": {
+            "type": "string",
+            "maxLength": 200,
+            "example": "A simple and delicious tomato soup.",
+            "description": "Short description of the recipe (max 200 chars, required)"
+          },
+          "cookiesTime": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 360,
+            "example": 45,
+            "description": "Cooking time in minutes (1 to 360, required)"
+          },
+          "cals": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 10000,
+            "example": 320,
+            "description": "Calories amount (1 to 10000, optional)"
+          },
+          "category": {
+            "type": "string",
+            "example": "Soups",
+            "description": "Category of the recipe (must match existing category, required)"
+          },
+          "ingredients": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string",
+              "description": "Ingredient ID (must exist in ingredients collection)",
+              "example": "65ca70d9ae7f10c88b598399"
+            }
+          },
+          "ingredientAmount": {
+            "type": "integer",
+            "minimum": 2,
+            "maximum": 16,
+            "example": 3,
+            "description": "Number of ingredients (2 to 16, required)"
+          },
+          "instructions": {
+            "type": "string",
+            "maxLength": 1200,
+            "example": "Boil water, add tomatoes, cook for 20 minutes...",
+            "description": "Full cooking instructions (max 1200 chars, required)"
+          },
+          "recipeImg": {
+            "type": "string",
+            "format": "binary",
+            "description": "Recipe image file (max 2Mb, optional)"
+          },
+          "owner": {
+            "type": "string",
+            "description": "User ID who created the recipe",
+            "example": "65c99e3f9a9f1c87b1234567"
+          },
+          "area": {
+            "type": "string",
+            "description": "Reference to area ID",
+            "example": "65c99e3f9a9f1c87b7654321"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2025-08-21T10:15:30.000Z"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "example": "2025-08-21T10:15:30.000Z"
+          }
+        }
+      },
       "Category": {
         "type": "object",
         "required": [
@@ -617,6 +1350,32 @@
             "type": "string",
             "format": "date-time",
             "example": "2025-08-20T14:25:45.456Z"
+          }
+        }
+      },
+      "User": {
+        "type": "object",
+        "required": [
+          "id",
+          "name",
+          "email"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Unique user ID",
+            "example": "64e8a6c5f9a5a12b34567890"
+          },
+          "name": {
+            "type": "string",
+            "description": "User's full name",
+            "example": "John Doe"
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "description": "User's email address",
+            "example": "john.doe@example.com"
           }
         }
       }

@@ -3,7 +3,7 @@ import { Types } from 'mongoose';
 
 const objectId = Joi.string().custom((value, helpers) => {
   if (!Types.ObjectId.isValid(value)) {
-    return helpers.message('any.invalid', {
+    return helpers.message('value: ' + value + ' must be ObjectId', {
       message: 'Must be ObjectId',
     });
   }
@@ -16,7 +16,7 @@ const ingredientsValidator = Joi.custom((value, helpers) => {
     try {
       parsed = JSON.parse(value);
     } catch (err) {
-      return helpers.error('any.invalid', {
+      return helpers.error('Ingredients must be valid JSON', {
         message: 'Ingredients must be valid JSON ' + err.message,
       });
     }
@@ -24,13 +24,18 @@ const ingredientsValidator = Joi.custom((value, helpers) => {
     parsed = value;
   }
   if (!Array.isArray(parsed)) {
-    return helpers.error('any.invalid', {
+    return helpers.error('Ingredients must be an array', {
       message: 'Ingredients must be an array',
     });
   }
   for (const item of parsed) {
-    if (!item.id || !item.measure || !Types.ObjectId.isValid(item.id)) {
-      return helpers.error('any.invalid', {
+    if (!item.id || !item.measure) {
+      return helpers.error('Each ingredient must have ingredient and measure', {
+        message: 'Each ingredient must have ingredient and measure',
+      });
+    }
+    if (!Types.ObjectId.isValid(item.id)) {
+      return helpers.error('value: ' + value + ' must be ObjectId', {
         message: 'Each ingredient must have ingredient and measure',
       });
     }

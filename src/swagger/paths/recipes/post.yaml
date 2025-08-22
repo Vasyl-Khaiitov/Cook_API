@@ -1,0 +1,60 @@
+tags:
+  - Recipes
+summary: Add own recipe
+operationId: postRecipes
+description: Add own recipe
+security:
+  - bearerAuth: []
+requestBody:
+  required: true
+  content:
+    multipart/form-data:
+      schema:
+        type: object
+        required:
+          - title
+          - category
+          - area
+          - ingredients
+          - instructions
+          - description
+        properties:
+          title:
+            type: string
+            description: Title name
+            example: 'Battenberg Cake'
+          category:
+            type: string
+            description: Category ID (Schema.Types.ObjectId)
+            example: '64c8d958249fae54bae90bb9'
+          area:
+            type: string
+            description: Area name
+            example: 'British'
+          instructions:
+            type: string
+            description: Instructions
+            example: 'Heat oven to 180C/160C fan/gas.'
+          description:
+            type: string
+            description: Description
+            example: 'A classic British cake'
+          time:
+            type: string
+            description: Time
+            example: '60'
+          ingredients:
+            type: string
+            description: Ingredients (JSON, id - Schema.Types.ObjectId)
+            example: '[{"id":"640c2dd963a319ea671e367e","measure":"175g"}]'
+          thumb:
+            type: string
+            format: binary
+            description: Photo
+responses:
+  '200':
+    $ref: '../../components/responses/200.yaml'
+  '400':
+    $ref: '../../components/responses/400.yaml'
+  '401':
+    $ref: '../../components/responses/401.yaml'
