@@ -7,16 +7,16 @@ const recipesSchema = new Schema(
       required: true,
     },
     category: {
-      type: String,
-      required: true,
+      type: Schema.Types.ObjectId,
+      ref: 'areas',
     },
     owner: {
       type: Schema.Types.ObjectId,
       ref: 'user',
     },
     area: {
-      type: Schema.Types.ObjectId,
-      ref: 'areas',
+      type: String,
+      required: true,
     },
     instructions: {
       type: String,
@@ -26,10 +26,22 @@ const recipesSchema = new Schema(
       type: String,
       required: true,
     },
+    thumb: {
+      type: String,
+      required: false,
+    },
+    time: {
+      type: String,
+      required: false,
+    },
     ingredients: [
       {
-        type: Schema.Types.ObjectId,
-        ref: 'ingredients',
+        id: {
+          type: Schema.Types.ObjectId,
+          ref: 'ingredients',
+          required: true,
+        },
+        measure: { type: String, required: true },
       },
     ],
   },
