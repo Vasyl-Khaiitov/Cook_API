@@ -55,7 +55,6 @@ paths:
 
   /ingredients:
     get:
-
       $ref: ../src/swagger/paths/ingredients/get.yaml
   /api/users:
     get:
@@ -64,7 +63,9 @@ paths:
   /recipes/{id}/favorite:
     post:
       $ref: ../src/swagger/paths/recipes/favorite/post.yaml
-
+  /recipes/{id}/favorites:
+    get:
+      $ref: ../src/swagger/paths/recipes/favorites/get.yaml
 
 components:
   securitySchemes:
