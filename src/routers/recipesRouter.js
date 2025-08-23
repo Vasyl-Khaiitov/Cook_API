@@ -16,6 +16,6 @@ router.get('/', ctrlWrapper(getRecipesController));
 router.get('/:id', ctrlWrapper(getRecipeByIdController));
 
 router.post('/:id/favorite', auth, ctrlWrapper(addRecipeToFavoritesController));
-router.get('/:userId/favorites', ctrlWrapper(recipesFavoriteController));
+router.delete('/:id/favorite', auth, ctrlWrapper(recipesFavoriteController));
 
 export default router;

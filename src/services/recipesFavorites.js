@@ -45,5 +45,5 @@ export const removeRecipeFromFavoritesService = async (userId, id) => {
   );
   await user.save();
 
-  return user.favorites;
+  return true;
 };

@@ -30,11 +30,7 @@ export const removeRecipeFromFavoritesController = async (req, res, next) => {
       throw new createHttpError.NotFound('Recipe not found in favorites');
     }
 
-    res.status(200).json({
-      status: 200,
-      message: 'Recipe removed from favorites',
-      data: favorites,
-    });
+    res.status(204).send();
   } catch (err) {
     next(err);
   }
