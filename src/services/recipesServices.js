@@ -1,13 +1,21 @@
-import createHttpError from 'http-errors';
 import { RecipesCollection } from '../db/models/recipes.js';
 import { calculatePaginationData } from '../utils/calculatePaginationData.js';
-import { UsersCollection } from '../db/models/userModel.js';
 
-export const getRecipesServices = async ({ page, perPage, filter = {} }) => {
+export const postRecipe = async (recipeData) => {
+  const newRecipe = await RecipesCollection.create(recipeData);
+  return newRecipe;
+};
+
+export const getRecipesServices = async ({
+  page,
+  perPage,
+  filter = {},
+  userId,
+}) => {
   const limit = perPage;
   const skip = (page - 1) * perPage;
 
-  const recipesQuery = RecipesCollection.find();
+  const recipesQuery = RecipesCollection.find(userId);
 
   if (filter.category) {
     recipesQuery.where('category').equals(filter.category);
@@ -21,9 +29,9 @@ export const getRecipesServices = async ({ page, perPage, filter = {} }) => {
     recipesQuery.where('title').regex(new RegExp(filter.title, 'i'));
   }
 
-  const recipesCount = await RecipesCollection.countDocuments(
-    recipesQuery.getFilter(),
-  );
+  const recipesCount = await RecipesCollection.find()
+    .merge(recipesQuery)
+    .countDocuments();
 
   const recipes = await recipesQuery.skip(skip).limit(limit).exec();
 

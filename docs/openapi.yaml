@@ -40,10 +40,12 @@ paths:
   /auth/logout:
     post:
       $ref: ../src/swagger/paths/auth/logout/post.yaml
-      
+
   /recipes:
     get:
       $ref: ../src/swagger/paths/recipes/get.yaml
+    post:
+      $ref: ../src/swagger/paths/recipes/post.yaml
 
   /recipes/{id}:
     get:
@@ -66,7 +68,6 @@ paths:
   /recipes/{id}/favorites:
     get:
       $ref: ../src/swagger/paths/recipes/favorites/get.yaml
-
 components:
   securitySchemes:
     bearerAuth:

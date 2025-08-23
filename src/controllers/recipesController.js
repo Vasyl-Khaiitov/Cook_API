@@ -3,9 +3,56 @@ import {
   getRecipesServices,
   getRecipeByIdServices,
   getFavoritesRecipesById,
+  postRecipe,
 } from '../services/recipesServices.js';
 import { parsePaginationParams } from '../utils/parsePaginationParams.js';
 import { parseFilterParams } from '../utils/parseFilterParams.js';
+
+import mongoose from 'mongoose';
+import { saveFileToCloudinary } from '../utils/saveFileToCloudinary.js';
+
+const parseMangoObjectId = (id) => {
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    throw new Error(`Invalid ObjectId: ${id}`);
+  }
+  return new mongoose.Types.ObjectId(id);
+};
+
+export const postRecipeController = async (req, res) => {
+  const { title, category, area, instructions, description } = req.body;
+
+  const thumb = req.file;
+
+  let thumbUrl;
+
+  if (thumb) {
+    thumbUrl = await saveFileToCloudinary(thumb);
+  }
+
+  const ingredients = JSON.parse(req.body.ingredients);
+
+  const owner = req.user.id;
+
+  const recipe = await postRecipe({
+    title,
+    category: parseMangoObjectId(category),
+    owner,
+    area,
+    instructions,
+    description,
+    thumb: thumbUrl,
+    ingredients: ingredients.map((i) => ({
+      id: parseMangoObjectId(i.id),
+      measure: i.measure,
+    })),
+  });
+
+  res.json({
+    status: 200,
+    message: 'Successfully call postRecipe Controller!',
+    data: recipe,
+  });
+};
 
 export const getRecipesController = async (req, res) => {
   const { page, perPage } = parsePaginationParams(req.query);

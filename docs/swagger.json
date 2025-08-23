@@ -425,6 +425,90 @@
             "$ref": "#/components/responses/401"
           }
         }
+      },
+      "post": {
+        "tags": [
+          "Recipes"
+        ],
+        "summary": "Add own recipe",
+        "operationId": "postRecipes",
+        "description": "Add own recipe",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "title",
+                  "category",
+                  "area",
+                  "ingredients",
+                  "instructions",
+                  "description"
+                ],
+                "properties": {
+                  "title": {
+                    "type": "string",
+                    "description": "Title name",
+                    "example": "Battenberg Cake"
+                  },
+                  "category": {
+                    "type": "string",
+                    "description": "Category ID (Schema.Types.ObjectId)",
+                    "example": "64c8d958249fae54bae90bb9"
+                  },
+                  "area": {
+                    "type": "string",
+                    "description": "Area name",
+                    "example": "British"
+                  },
+                  "instructions": {
+                    "type": "string",
+                    "description": "Instructions",
+                    "example": "Heat oven to 180C/160C fan/gas."
+                  },
+                  "description": {
+                    "type": "string",
+                    "description": "Description",
+                    "example": "A classic British cake"
+                  },
+                  "time": {
+                    "type": "string",
+                    "description": "Time",
+                    "example": "60"
+                  },
+                  "ingredients": {
+                    "type": "string",
+                    "description": "Ingredients (JSON, id - Schema.Types.ObjectId)",
+                    "example": "[{\"id\":\"640c2dd963a319ea671e367e\",\"measure\":\"175g\"}]"
+                  },
+                  "thumb": {
+                    "type": "string",
+                    "format": "binary",
+                    "description": "Photo"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/200"
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          }
+        }
       }
     },
     "/recipes/{id}": {
@@ -695,6 +779,130 @@
           }
         }
       }
+    },
+    "/recipes/{id}/favorites": {
+      "get": {
+        "tags": [
+          "Recipes"
+        ],
+        "summary": "Get fevorites recipe by userId",
+        "operationId": "getFavoritesRecipesById",
+        "description": "Get fevorites recipe by userId",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "65ca67e7ae7f10c88b598384"
+            }
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "required": false,
+            "schema": {
+              "type": "number",
+              "example": 1
+            }
+          },
+          {
+            "in": "query",
+            "name": "perPage",
+            "required": false,
+            "schema": {
+              "type": "number",
+              "example": 12
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully loaded favorite recipes by user!",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "status",
+                    "message",
+                    "data"
+                  ],
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully found contact with id 65ca67e7ae7f10c88b598384!"
+                    },
+                    "data": {
+                      "type": "object",
+                      "required": [
+                        "recipes",
+                        "total",
+                        "page",
+                        "perPage",
+                        "totalPage",
+                        "hasNextPage",
+                        "hasPreviousPage"
+                      ],
+                      "properties": {
+                        "recipes": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/Recipes"
+                          }
+                        },
+                        "page": {
+                          "type": "number",
+                          "example": 1
+                        },
+                        "perPage": {
+                          "type": "number",
+                          "example": 10
+                        },
+                        "total": {
+                          "type": "number",
+                          "example": 100
+                        },
+                        "totalPage": {
+                          "type": "number",
+                          "example": 10
+                        },
+                        "hasNextPage": {
+                          "type": "boolean",
+                          "example": false
+                        },
+                        "hasPreviousPage": {
+                          "type": "boolean",
+                          "example": false
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
     }
   },
   "components": {
@@ -705,6 +913,98 @@
       }
     },
     "responses": {
+      "200": {
+        "description": "Successful response",
+        "content": {
+          "application/json": {
+            "schema": {
+              "type": "object",
+              "properties": {
+                "status": {
+                  "type": "integer",
+                  "example": 200
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Successfully call postRecipe Controller!"
+                },
+                "data": {
+                  "type": "object",
+                  "properties": {
+                    "_id": {
+                      "type": "string",
+                      "example": "68a846f9a0ded7df9882570e"
+                    },
+                    "title": {
+                      "type": "string",
+                      "example": "Test1. Battenberg Cake"
+                    },
+                    "category": {
+                      "type": "string",
+                      "example": "64c8d958249fae54bae90bb9"
+                    },
+                    "owner": {
+                      "type": "string",
+                      "example": "68a6e49aa790449984980dcf"
+                    },
+                    "area": {
+                      "type": "string",
+                      "example": "British"
+                    },
+                    "instructions": {
+                      "type": "string",
+                      "example": "Heat oven to 180C/160C fan/gas."
+                    },
+                    "description": {
+                      "type": "string",
+                      "example": "A classic British cake"
+                    },
+                    "thumb": {
+                      "type": "string",
+                      "format": "uri",
+                      "example": "https://res.cloudinary.com/reafmyq8k/image/upload/v1755858681/xab9dcq8npt7ql0mlza0.png"
+                    },
+                    "time": {
+                      "type": "string",
+                      "example": "60"
+                    },
+                    "ingredients": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string",
+                            "example": "640c2dd963a319ea671e367e"
+                          },
+                          "measure": {
+                            "type": "string",
+                            "example": "175g"
+                          },
+                          "_id": {
+                            "type": "string",
+                            "example": "68a846f9a0ded7df9882570f"
+                          }
+                        }
+                      }
+                    },
+                    "createdAt": {
+                      "type": "string",
+                      "format": "date-time",
+                      "example": "2025-08-22T10:31:21.550Z"
+                    },
+                    "updatedAt": {
+                      "type": "string",
+                      "format": "date-time",
+                      "example": "2025-08-22T10:31:21.550Z"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
       "400": {
         "description": "Bad Request",
         "content": {
