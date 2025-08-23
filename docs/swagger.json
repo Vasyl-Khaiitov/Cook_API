@@ -39,14 +39,6 @@
     {
       "name": "Categories",
       "description": "Recipe categories"
-    },
-    {
-      "name": "Areas",
-      "description": "Regions"
-    },
-    {
-      "name": "Testimonials",
-      "description": "User reviews"
     }
   ],
   "paths": {

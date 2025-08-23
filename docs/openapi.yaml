@@ -17,10 +17,6 @@ tags:
     description: Ingredients
   - name: Categories
     description: Recipe categories
-  - name: Areas
-    description: Regions
-  - name: Testimonials
-    description: User reviews
 
 servers:
   - url: https://api.tasteorama.com/v1
