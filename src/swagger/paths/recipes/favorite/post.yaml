@@ -52,22 +52,9 @@ responses:
           schema:
             type: string
       responses:
-        '200':
-          description: Recipe removed from favorites
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  status:
-                    type: integer
-                    example: 200
-                  message:
-                    type: string
-                    example: Recipe removed from favorites
-                  data:
-                    type: array
-                    items:
-                      type: string
+        '204':
+          description: Recipe successfully removed from favorites. No content returned.
+        '401':
+          $ref: '../../../components/responses/401.yaml'
         '404':
-          description: Recipe not found in favorites
+          $ref: '../../../components/responses/404.yaml'
