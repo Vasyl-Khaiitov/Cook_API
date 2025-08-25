@@ -1,0 +1,93 @@
+tags:
+  - Recipes
+summary: Get list of recipes
+operationId: getRecipesServices
+description: 'Get all public recipes'
+security: []
+
+parameters:
+  - in: query
+    name: page
+    schema:
+      type: integer
+      example: 1
+  - in: query
+    name: perPage
+    schema:
+      type: integer
+      example: 12
+  - in: query
+    name: categories
+    schema:
+      type: string
+      example: 'Desert'
+    description: Filter recipes by category
+  - in: query
+    name: ingredients
+    schema:
+      type: string
+      example: '65ca70d9ae7f10c88b598399,65ca70d9ae7f10c88b5983aa'
+    description: A list of ingredient IDs, to be separated by commas, for filtering recipes
+  - in: query
+    name: title
+    schema:
+      type: string
+      example: 'Tomato'
+    description: Search recipes by partial match in the title (case-insensitive)
+
+responses:
+  '200':
+    description: 'Successfully found recipes!'
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: 'Successfully found recipes!'
+            data:
+              type: object
+              required:
+                - data
+                - page
+                - perPage
+                - totalItems
+                - totalPages
+                - hasNextPage
+                - hasPreviousPage
+              properties:
+                data:
+                  type: array
+                  items:
+                    $ref: ../../components/schemas/Recipes.yaml
+                page:
+                  type: number
+                  example: 2
+                perPage:
+                  type: number
+                  example: 4
+                totalItems:
+                  type: number
+                  example: 4
+                totalPages:
+                  type: number
+                  example: 8
+                hasNextPage:
+                  type: boolean
+                  example: false
+                hasPreviousPage:
+                  type: boolean
+                  example: true
+  '400':
+    $ref: ../../components/responses/400.yaml
+
+  '401':
+    $ref: ../../components/responses/401.yaml
