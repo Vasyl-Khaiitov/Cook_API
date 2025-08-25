@@ -1,3 +1,4 @@
+import createHttpError from 'http-errors';
 import { RecipesCollection } from '../db/models/recipes.js';
 import { calculatePaginationData } from '../utils/calculatePaginationData.js';
 
