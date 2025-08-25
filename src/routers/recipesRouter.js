@@ -6,10 +6,13 @@ import {
   recipesFavoriteController,
   postRecipeController,
 } from '../controllers/recipesController.js';
+import {
+  addRecipeToFavoritesController,
+  removeRecipeFromFavoritesController,
+} from '../controllers/recipesFavorites.js';
 import { upload } from '../middlewares/multer.js';
 import { validateBody } from '../middlewares/validateBody.js';
 import { recipeSchema } from '../validation/recipeSchema.js';
-import { addRecipeToFavoritesController } from '../controllers/recipesFavorites.js';
 import { auth } from '../middlewares/auth.js';
 
 const router = Router();
@@ -24,7 +27,9 @@ router.post(
   ctrlWrapper(postRecipeController),
 );
 
-router.post('/:id/favorite', auth, ctrlWrapper(addRecipeToFavoritesController));
 router.get('/:id/favorites', auth, ctrlWrapper(recipesFavoriteController));
+router.post('/:id/favorite', auth, ctrlWrapper(addRecipeToFavoritesController));
+router.delete('/:id/favorite', auth, ctrlWrapper(removeRecipeFromFavoritesController));
+
 
 export default router;

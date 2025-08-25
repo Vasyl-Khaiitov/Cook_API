@@ -37,3 +37,24 @@ responses:
     $ref: '../../../components/responses/409.yaml'
   '500':
     $ref: '../../../components/responses/500.yaml'
+
+  /users/{id}/favorites:
+    delete:
+      tags:
+        - Users
+      summary: Remove recipe from favorites
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Recipe successfully removed from favorites.
+        '401':
+          $ref: '../../../components/responses/401.yaml'
+        '404':
+          $ref: '../../../components/responses/404.yaml'
