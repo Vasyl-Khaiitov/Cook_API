@@ -45,5 +45,10 @@ export const removeRecipeFromFavoritesService = async (userId, id) => {
   );
   await user.save();
 
-  return true;
+ return {
+  status: 'success',
+  message: 'Recipe removed from favorites',
+  favorites: user.favorites,
+};
+
 };
