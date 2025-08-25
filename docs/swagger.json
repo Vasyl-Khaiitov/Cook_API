@@ -770,6 +770,40 @@
             "$ref": "#/components/responses/500"
           }
         }
+      },
+      "delete": {
+        "summary": "Remove a recipe from user favorites",
+        "operationId": "removeRecipeToFavorites",
+        "tags": [
+          "Recipes"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "ID of the recipe to remove from favorites",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Recipe successfully removed from favorites."
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          }
+        }
       }
     },
     "/recipes/{id}/favorites": {
@@ -892,42 +926,6 @@
           },
           "500": {
             "$ref": "#/components/responses/500"
-          }
-        }
-      }
-    },
-    "/delete/{id}/favorite": {
-      "delete": {
-        "summary": "Remove a recipe from user favorites",
-        "operationId": "removeRecipeToFavorites",
-        "tags": [
-          "Recipes"
-        ],
-        "security": [
-          {
-            "bearerAuth": []
-          }
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "description": "ID of the recipe to remove from favorites",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "204": {
-            "description": "Recipe successfully removed from favorites."
-          },
-          "401": {
-            "$ref": "#/components/responses/401"
-          },
-          "404": {
-            "$ref": "#/components/responses/404"
           }
         }
       }
