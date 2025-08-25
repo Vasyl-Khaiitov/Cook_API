@@ -1,0 +1,83 @@
+tags:
+  - Recipes
+summary: Get fevorites recipe by userId
+operationId: getFavoritesRecipesById
+description: 'Get fevorites recipe by userId'
+security:
+  - bearerAuth: []
+parameters:
+  - in: path
+    name: id
+    required: true
+    schema:
+      type: string
+      example: '65ca67e7ae7f10c88b598384'
+  - in: query
+    name: page
+    required: false
+    schema:
+      type: number
+      example: 1
+  - in: query
+    name: perPage
+    required: false
+    schema:
+      type: number
+      example: 12
+responses:
+  '200':
+    description: 'Successfully loaded favorite recipes by user!'
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: Successfully found contact with id 65ca67e7ae7f10c88b598384!
+            data:
+              type: object
+              required:
+                - recipes
+                - total
+                - page
+                - perPage
+                - totalPage
+                - hasNextPage
+                - hasPreviousPage
+              properties:
+                recipes:
+                  type: array
+                  items:
+                    $ref: '../../../components/schemas/Recipes.yaml'
+                page:
+                  type: number
+                  example: 1
+                perPage:
+                  type: number
+                  example: 10
+                total:
+                  type: number
+                  example: 100
+                totalPage:
+                  type: number
+                  example: 10
+                hasNextPage:
+                  type: boolean
+                  example: false
+                hasPreviousPage:
+                  type: boolean
+                  example: false
+  '401':
+    $ref: '../../../components/responses/401.yaml'
+  '404':
+    $ref: '../../../components/responses/404.yaml'
+  '500':
+    $ref: '../../../components/responses/500.yaml'

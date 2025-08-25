@@ -1,0 +1,65 @@
+description: Successful response
+content:
+  application/json:
+    schema:
+      type: object
+      properties:
+        status:
+          type: integer
+          example: 200
+        message:
+          type: string
+          example: Successfully call postRecipe Controller!
+        data:
+          type: object
+          properties:
+            _id:
+              type: string
+              example: 68a846f9a0ded7df9882570e
+            title:
+              type: string
+              example: Test1. Battenberg Cake
+            category:
+              type: string
+              example: 64c8d958249fae54bae90bb9
+            owner:
+              type: string
+              example: 68a6e49aa790449984980dcf
+            area:
+              type: string
+              example: British
+            instructions:
+              type: string
+              example: Heat oven to 180C/160C fan/gas.
+            description:
+              type: string
+              example: A classic British cake
+            thumb:
+              type: string
+              format: uri
+              example: https://res.cloudinary.com/reafmyq8k/image/upload/v1755858681/xab9dcq8npt7ql0mlza0.png
+            time:
+              type: string
+              example: '60'
+            ingredients:
+              type: array
+              items:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: 640c2dd963a319ea671e367e
+                  measure:
+                    type: string
+                    example: 175g
+                  _id:
+                    type: string
+                    example: 68a846f9a0ded7df9882570f
+            createdAt:
+              type: string
+              format: date-time
+              example: 2025-08-22T10:31:21.550Z
+            updatedAt:
+              type: string
+              format: date-time
+              example: 2025-08-22T10:31:21.550Z
