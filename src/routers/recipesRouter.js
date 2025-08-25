@@ -8,7 +8,7 @@ import {
 } from '../controllers/recipesController.js';
 import {
   addRecipeToFavoritesController,
-  recipesFavoriteController,
+  removeRecipeFromFavoritesController,
 } from '../controllers/recipesFavorites.js';
 import { upload } from '../middlewares/multer.js';
 import { validateBody } from '../middlewares/validateBody.js';
