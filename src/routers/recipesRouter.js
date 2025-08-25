@@ -29,7 +29,7 @@ router.post(
 
 router.get('/:id/favorites', auth, ctrlWrapper(recipesFavoriteController));
 router.post('/:id/favorite', auth, ctrlWrapper(addRecipeToFavoritesController));
-router.delete('/:id/favorite', auth, ctrlWrapper(recipesFavoriteController));
+router.delete('/:id/favorite', auth, ctrlWrapper(removeRecipeFromFavoritesController));
 
 
 export default router;
