@@ -53,7 +53,7 @@ responses:
             type: string
       responses:
         '204':
-          description: Recipe successfully removed from favorites. No content returned.
+          description: Recipe successfully removed from favorites.
         '401':
           $ref: '../../../components/responses/401.yaml'
         '404':
