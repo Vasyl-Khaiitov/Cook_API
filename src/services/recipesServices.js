@@ -1,45 +1,43 @@
-import { RecipesCollection } from "../db/models/recipes.js";
-import { calculatePaginationData } from "../utils/calculatePaginationData.js";
+import { RecipesCollection } from '../db/models/recipes.js';
+import { calculatePaginationData } from '../utils/calculatePaginationData.js';
 
+export const getRecipesServices = async ({
+  page,
+  perPage,
+  filter = {},
+  userId,
+}) => {
+  const limit = perPage;
+  const skip = (page - 1) * perPage;
 
+  const recipesQuery = RecipesCollection.find(userId ? { owner: userId } : {});
 
-export const getRecipesServices = async ({ page, perPage, filter = {}, userId }) => {
+  if (filter.category) {
+    recipesQuery.where('category').equals(filter.category);
+  }
 
-    const limit = perPage;
-    const skip = (page - 1) * perPage;
+  if (filter.ingredients) {
+    recipesQuery.where('ingredients').all(filter.ingredients);
+  }
 
-    const recipesQuery = RecipesCollection.find(userId);
+  if (filter.title) {
+    recipesQuery.where('title').regex(new RegExp(filter.title, 'i'));
+  }
 
-    if (filter.category) {
-        recipesQuery.where('category').equals(filter.category);
-    }
+  const recipesCount = await RecipesCollection.countDocuments(
+    recipesQuery.getFilter(),
+  );
+  const recipes = await recipesQuery.skip(skip).limit(limit).exec();
 
-    if (filter.ingredients) {
-        recipesQuery.where('ingredients.id').all(filter.ingredients);
-}
+  const paginationData = calculatePaginationData(recipesCount, perPage, page);
 
-
-    if (filter.title) {
-        recipesQuery.where('title').regex(new RegExp(filter.title, 'i'));
-    }
-
-
-    const recipesCount = await RecipesCollection.find().merge(recipesQuery).countDocuments();
-
-    const recipes = await recipesQuery.skip(skip).limit(limit).exec();
-
-    const paginationData = calculatePaginationData(recipesCount, perPage, page);
-    
-    return {
-        data: recipes,
-        ...paginationData,
-    };
+  return {
+    data: recipes,
+    ...paginationData,
+  };
 };
 
-
-
 export const getRecipeByIdServices = async (id) => {
-
-    const recipeById = await RecipesCollection.findById(id);
-    return recipeById;
+  const recipeById = await RecipesCollection.findById(id);
+  return recipeById;
 };
