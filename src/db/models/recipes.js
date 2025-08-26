@@ -8,8 +8,8 @@ const recipesSchema = new Schema(
     },
     category: {
       type: Schema.Types.ObjectId,
+      ref: 'categories', // зв'язок з categories
       required: true,
-      ref: 'categories',
     },
     owner: {
       type: Schema.Types.ObjectId,
@@ -42,7 +42,10 @@ const recipesSchema = new Schema(
           ref: 'ingredients',
           required: true,
         },
-        measure: { type: String, required: true },
+        measure: {
+          type: String,
+          required: true,
+        },
       },
     ],
   },

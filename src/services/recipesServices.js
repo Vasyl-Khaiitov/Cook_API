@@ -1,12 +1,7 @@
-import createHttpError from 'http-errors';
 import { RecipesCollection } from '../db/models/recipes.js';
+import { CategoriesCollection } from '../db/models/categories.js';
 import { calculatePaginationData } from '../utils/calculatePaginationData.js';
-import { UsersCollection } from '../db/models/userModel.js';
-
-export const postRecipe = async (recipeData) => {
-  const newRecipe = await RecipesCollection.create(recipeData);
-  return newRecipe;
-};
+import mongoose from 'mongoose';
 
 export const getRecipesServices = async ({
   page,
@@ -17,25 +12,43 @@ export const getRecipesServices = async ({
   const limit = perPage;
   const skip = (page - 1) * perPage;
 
-  const recipesQuery = RecipesCollection.find(userId ? { owner: userId } : {});
+  const query = userId ? { owner: userId } : {};
 
+  // 🔎 Фільтр по категорії
   if (filter.category) {
-    recipesQuery.where('category').equals(filter.category);
+    if (mongoose.Types.ObjectId.isValid(filter.category)) {
+      // якщо передали ObjectId
+      query.category = filter.category;
+    } else {
+      // якщо передали назву категорії (наприклад "Breakfast")
+      const categoryDoc = await CategoriesCollection.findOne({
+        name: filter.category,
+      });
+      if (categoryDoc) {
+        query.category = categoryDoc._id;
+      } else {
+        query.category = null; // не знайдено такої категорії → пустий результат
+      }
+    }
   }
 
+  // 🔎 Фільтр по інгредієнтах
   if (filter.ingredients) {
-    recipesQuery.where('ingredients').all(filter.ingredients);
+    query['ingredients.id'] = { $all: filter.ingredients };
   }
 
+  // 🔎 Фільтр по заголовку
   if (filter.title) {
-    recipesQuery.where('title').regex(new RegExp(filter.title, 'i'));
+    query.title = new RegExp(filter.title, 'i');
   }
 
-  const recipesCount = await RecipesCollection.countDocuments(
-    recipesQuery.getFilter(),
-  );
+  const recipesCount = await RecipesCollection.countDocuments(query);
 
-  const recipes = await recipesQuery.skip(skip).limit(limit).exec();
+  const recipes = await RecipesCollection.find(query)
+    .populate('category', 'name') // підтягнемо назву категорії
+    .skip(skip)
+    .limit(limit)
+    .exec();
 
   const paginationData = calculatePaginationData(recipesCount, perPage, page);
 
@@ -46,23 +59,8 @@ export const getRecipesServices = async ({
 };
 
 export const getRecipeByIdServices = async (id) => {
-  const recipeById = await RecipesCollection.findById(id);
+  const recipeById = await RecipesCollection.findById(id)
+    .populate('category', 'name') // щоб підтягнути назву категорії
+    .populate('ingredients.id', 'name'); // можна також підтягнути назви інгредієнтів
   return recipeById;
-};
-
-export const getFavoritesRecipesById = async (userId, page, perPage) => {
-  const skip = page > 0 ? (page - 1) * perPage : 0;
-  if (userId === null) {
-    throw new createHttpError.NotFound('User not found');
-  }
-  const user = await UsersCollection.findById(userId).populate({
-    path: 'favorites',
-    options: { skip, limits: perPage },
-  });
-  if (!user) {
-    throw new createHttpError.NotFound('User favorites not found');
-  }
-  const totalItems = user.favorites.length;
-  const paginationData = calculatePaginationData(totalItems, perPage, page);
-  return { data: user.favorites, ...paginationData };
 };
