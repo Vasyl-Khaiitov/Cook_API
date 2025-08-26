@@ -314,7 +314,7 @@
           },
           {
             "in": "query",
-            "name": "categories",
+            "name": "category",
             "schema": {
               "type": "string",
               "example": "Desert"

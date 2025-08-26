@@ -4,6 +4,7 @@
 import createHttpError from 'http-errors';
 import { RecipesCollection } from '../db/models/recipes.js';
 import { calculatePaginationData } from '../utils/calculatePaginationData.js';
+import { UsersCollection } from '../db/models/userModel.js';
 
 export const postRecipe = async (recipeData) => {
   const newRecipe = await RecipesCollection.create(recipeData);
