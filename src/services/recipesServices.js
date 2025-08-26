@@ -1,6 +1,3 @@
-
-
-
 import createHttpError from 'http-errors';
 import { RecipesCollection } from '../db/models/recipes.js';
 import { calculatePaginationData } from '../utils/calculatePaginationData.js';
@@ -11,7 +8,6 @@ export const postRecipe = async (recipeData) => {
   return newRecipe;
 };
 
-
 export const getRecipesServices = async ({
   page,
   perPage,
@@ -21,32 +17,26 @@ export const getRecipesServices = async ({
   const limit = perPage;
   const skip = (page - 1) * perPage;
 
-
-  
-  const recipesQuery = RecipesCollection.find(userId ? { owner: userId } : {});
-
-
+  const recipesQuery = RecipesCollection.find(
+    userId ? { owner: userId } : {},
+  ).populate('category', 'name');
 
   if (filter.category) {
     recipesQuery.where('category').equals(filter.category);
   }
 
   if (filter.ingredients) {
-
     recipesQuery.where('ingredients').all(filter.ingredients);
-
   }
 
   if (filter.title) {
     recipesQuery.where('title').regex(new RegExp(filter.title, 'i'));
   }
 
-
   const recipesCount = await RecipesCollection.countDocuments(
     recipesQuery.getFilter(),
   );
 
-  
   const recipes = await recipesQuery.skip(skip).limit(limit).exec();
 
   const paginationData = calculatePaginationData(recipesCount, perPage, page);
@@ -58,10 +48,11 @@ export const getRecipesServices = async ({
 };
 
 export const getRecipeByIdServices = async (id) => {
-  const recipeById = await RecipesCollection.findById(id);
+  const recipeById = await RecipesCollection.findById(id).populate(
+    'category',
+    'name',
+  ); // <- тут вказуємо, що потрібно підставити поле 'name' з категорії
   return recipeById;
-
-
 };
 
 export const getFavoritesRecipesById = async (userId, page, perPage) => {
@@ -79,5 +70,4 @@ export const getFavoritesRecipesById = async (userId, page, perPage) => {
   const totalItems = user.favorites.length;
   const paginationData = calculatePaginationData(totalItems, perPage, page);
   return { data: user.favorites, ...paginationData };
-
 };
