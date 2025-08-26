@@ -1,4 +1,4 @@
-import { addRecipeToFavoritesService } from '../services/recipesFavorites.js';
+import { addRecipeToFavoritesService } from '../services/recipesServices.js';
 
 export const addRecipeToFavoritesController = async (req, res, next) => {
   try {

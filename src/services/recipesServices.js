@@ -1,8 +1,12 @@
-import { RecipesCollection } from '../db/models/recipes.js';
-import { CategoriesCollection } from '../db/models/categories.js';
-import { calculatePaginationData } from '../utils/calculatePaginationData.js';
+import createHttpError from 'http-errors';
 import mongoose from 'mongoose';
 
+import { RecipesCollection } from '../db/models/recipes.js';
+import { CategoriesCollection } from '../db/models/categories.js';
+import { UsersCollection } from '../db/models/userModel.js';
+import { calculatePaginationData } from '../utils/calculatePaginationData.js';
+
+// 📌 Отримати всі рецепти з фільтрами
 export const getRecipesServices = async ({
   page,
   perPage,
@@ -58,9 +62,59 @@ export const getRecipesServices = async ({
   };
 };
 
+// 📌 Отримати рецепт по id
 export const getRecipeByIdServices = async (id) => {
   const recipeById = await RecipesCollection.findById(id)
-    .populate('category', 'name') // щоб підтягнути назву категорії
-    .populate('ingredients.id', 'name'); // можна також підтягнути назви інгредієнтів
+    .populate('category', 'name') // підтягнути категорію
+    .populate('ingredients.id', 'name'); // підтягнути інгредієнти (якщо є name)
+
   return recipeById;
+};
+
+// 📌 Отримати улюблені рецепти користувача
+export const getFavoriteRecipesById = async (userId, page, perPage) => {
+  if (!userId) {
+    throw new createHttpError.NotFound('User not found');
+  }
+
+  const skip = page > 0 ? (page - 1) * perPage : 0;
+
+  const user = await UsersCollection.findById(userId).populate({
+    path: 'favorites',
+    model: 'recipes',
+    options: { skip, limit: perPage },
+    populate: { path: 'category', select: 'name' }, // одразу підтягнути назву категорії
+  });
+
+  if (!user) {
+    throw new createHttpError.NotFound('User not found');
+  }
+
+  return user.favorites || [];
+};
+
+// 📌 Додати рецепт у список улюблених
+export const addRecipeToFavoritesService = async (userId, recipeId) => {
+  if (!recipeId) {
+    throw new createHttpError.BadRequest('Recipe ID is required');
+  }
+
+  const recipe = await RecipesCollection.findById(recipeId);
+  if (!recipe) {
+    throw new createHttpError.NotFound('Recipe not found');
+  }
+
+  const user = await UsersCollection.findById(userId);
+  if (!user) {
+    throw new createHttpError.NotFound('User not found');
+  }
+
+  if (user.favorites.includes(recipeId)) {
+    throw new createHttpError.Conflict('Recipe already in favorites');
+  }
+
+  user.favorites.push(recipeId);
+  await user.save();
+
+  return user.favorites;
 };
