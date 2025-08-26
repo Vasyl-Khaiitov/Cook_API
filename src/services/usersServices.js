@@ -1,10 +1,11 @@
-import {UsersCollection} from "../db/models/users.js";
-import createHttpError from "http-errors";
+import { UsersCollection } from '../db/models/userModel.js';
 
-export async function getUserService(userId){
-    const user = await UsersCollection.findById(userId);
-    if(!user){
-        throw createHttpError.NotFound("User Not Found");
-    }
-    return {id: user._id,name:user.name,email:user.email};
-};
+import createHttpError from 'http-errors';
+
+export async function getUserService(userId) {
+  const user = await UsersCollection.findById(userId);
+  if (!user) {
+    throw createHttpError.NotFound('User Not Found');
+  }
+  return { id: user._id, name: user.name, email: user.email };
+}
