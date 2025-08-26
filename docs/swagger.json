@@ -218,7 +218,11 @@
         "summary": "Refresh session accessToken",
         "operationId": "refresh",
         "description": "Refresh session accessToken",
-        "security": [],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "Successfully refreshed a session!",
@@ -274,7 +278,11 @@
         "summary": "User logout",
         "operationId": "logoutUser",
         "description": "Log out a user",
-        "security": [],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
         "responses": {
           "204": {
             "description": "**No Content**\n\nThe user was successfully logged out. There is no content in the response body, only the status code 204 indicating a successful logout.\n",
