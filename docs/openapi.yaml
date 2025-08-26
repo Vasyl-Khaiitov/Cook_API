@@ -17,10 +17,6 @@ tags:
     description: Ingredients
   - name: Categories
     description: Recipe categories
-  - name: Areas
-    description: Regions
-  - name: Testimonials
-    description: User reviews
 
 servers:
   - url: https://api.tasteorama.com/v1
@@ -40,6 +36,13 @@ paths:
   /auth/logout:
     post:
       $ref: ../src/swagger/paths/auth/logout/post.yaml
+
+  /recipes:
+    get:
+      $ref: ../src/swagger/paths/recipes/get.yaml
+    post:
+      $ref: ../src/swagger/paths/recipes/post.yaml
+
   /recipes/{id}:
     get:
       $ref: ../src/swagger/paths/recipes/{id}/get.yaml
@@ -50,7 +53,6 @@ paths:
 
   /ingredients:
     get:
-
       $ref: ../src/swagger/paths/ingredients/get.yaml
   /api/users:
     get:
@@ -59,8 +61,11 @@ paths:
   /recipes/{id}/favorite:
     post:
       $ref: ../src/swagger/paths/recipes/favorite/post.yaml
-
-
+    delete:
+      $ref: ../src/swagger/paths/recipes/favorite/delete.yaml
+  /recipes/{id}/favorites:
+    get:
+      $ref: ../src/swagger/paths/recipes/favorites/get.yaml
 components:
   securitySchemes:
     bearerAuth:

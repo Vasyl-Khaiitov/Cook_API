@@ -8,16 +8,16 @@ const recipesSchema = new Schema(
     },
     category: {
       type: Schema.Types.ObjectId,
-      ref: 'categories',
+      ref: 'categories', // зв'язок з categories
       required: true,
     },
-
     owner: {
       type: Schema.Types.ObjectId,
       ref: 'user',
     },
     area: {
-      type: String, // у тебе зараз просто "British" (string), а не ObjectId
+      type: String,
+      required: true,
     },
     instructions: {
       type: String,
@@ -29,9 +29,11 @@ const recipesSchema = new Schema(
     },
     thumb: {
       type: String,
+      required: false,
     },
     time: {
       type: String,
+      required: false,
     },
     ingredients: [
       {
