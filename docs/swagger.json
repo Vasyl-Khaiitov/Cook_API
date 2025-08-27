@@ -42,7 +42,7 @@
     }
   ],
   "paths": {
-    "/auth/register": {
+    "/api/auth/register": {
       "post": {
         "tags": [
           "Auth"
@@ -126,7 +126,7 @@
         }
       }
     },
-    "/auth/login": {
+    "/api/auth/login": {
       "post": {
         "tags": [
           "Auth"
@@ -210,7 +210,7 @@
         }
       }
     },
-    "/auth/refresh": {
+    "/api/auth/refresh": {
       "post": {
         "tags": [
           "Auth"
@@ -270,7 +270,7 @@
         }
       }
     },
-    "/auth/logout": {
+    "/api/auth/logout": {
       "post": {
         "tags": [
           "Auth"
@@ -294,7 +294,7 @@
         }
       }
     },
-    "/recipes": {
+    "/api/recipes": {
       "get": {
         "tags": [
           "Recipes"
@@ -334,9 +334,9 @@
             "name": "ingredients",
             "schema": {
               "type": "string",
-              "example": "65ca70d9ae7f10c88b598399,65ca70d9ae7f10c88b5983aa"
+              "example": "65ca70d9ae7f10c88b598399"
             },
-            "description": "A list of ingredient IDs, to be separated by commas, for filtering recipes"
+            "description": "Ingredient ID for recipe filtering (enter it in the query parameters for filtering)"
           },
           {
             "in": "query",
@@ -511,7 +511,7 @@
         }
       }
     },
-    "/recipes/{id}": {
+    "/api/recipes/{id}": {
       "get": {
         "tags": [
           "Recipes"
@@ -570,7 +570,7 @@
         }
       }
     },
-    "/categories": {
+    "/api/categories": {
       "get": {
         "tags": [
           "Categories"
@@ -617,7 +617,7 @@
         }
       }
     },
-    "/ingredients": {
+    "/api/ingredients": {
       "get": {
         "tags": [
           "Ingredients"
@@ -715,7 +715,7 @@
         }
       }
     },
-    "/recipes/{id}/favorite": {
+    "/api/recipes/{id}/favorite": {
       "post": {
         "summary": "Add a recipe to user favorites",
         "operationId": "addRecipeToFavorites",
@@ -814,7 +814,7 @@
         }
       }
     },
-    "/recipes/{id}/favorites": {
+    "/api/recipes/{id}/favorites": {
       "get": {
         "tags": [
           "Recipes"

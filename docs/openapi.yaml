@@ -24,46 +24,46 @@ servers:
   - url: http://localhost:3030
     description: Local development
 paths:
-  /auth/register:
+  /api/auth/register:
     post:
       $ref: ../src/swagger/paths/auth/register/post.yaml
-  /auth/login:
+  /api/auth/login:
     post:
       $ref: ../src/swagger/paths/auth/login/post.yaml
-  /auth/refresh:
+  /api/auth/refresh:
     post:
       $ref: ../src/swagger/paths/auth/refresh/post.yaml
-  /auth/logout:
+  /api/auth/logout:
     post:
       $ref: ../src/swagger/paths/auth/logout/post.yaml
 
-  /recipes:
+  /api/recipes:
     get:
       $ref: ../src/swagger/paths/recipes/get.yaml
     post:
       $ref: ../src/swagger/paths/recipes/post.yaml
 
-  /recipes/{id}:
+  /api/recipes/{id}:
     get:
       $ref: ../src/swagger/paths/recipes/{id}/get.yaml
 
-  /categories:
+  /api/categories:
     get:
       $ref: ../src/swagger/paths/categories/get.yaml
 
-  /ingredients:
+  /api/ingredients:
     get:
       $ref: ../src/swagger/paths/ingredients/get.yaml
   /api/users:
     get:
       $ref: ../src/swagger/paths/users/get.yaml
 
-  /recipes/{id}/favorite:
+  /api/recipes/{id}/favorite:
     post:
       $ref: ../src/swagger/paths/recipes/favorite/post.yaml
     delete:
       $ref: ../src/swagger/paths/recipes/favorite/delete.yaml
-  /recipes/{id}/favorites:
+  /api/recipes/{id}/favorites:
     get:
       $ref: ../src/swagger/paths/recipes/favorites/get.yaml
 components:
