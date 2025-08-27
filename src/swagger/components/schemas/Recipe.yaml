@@ -1,0 +1,27 @@
+type: object
+required:
+  - _id
+  - name
+  - description
+  - time
+  - owner
+properties:
+  _id:
+    type: string
+    example: 66d94c61b473c5f948d3949b
+  name:
+    type: string
+    example: Chicken Soup
+  description:
+    type: string
+    example: Tasty and healthy soup
+  time:
+    type: string
+    example: 30 min
+  photo:
+    type: string
+    example: https://cdn.tasteorama.com/images/chicken-soup.png
+  owner:
+    type: string
+    description: ID користувача, який створив рецепт
+    example: 66d94c28b473c5f948d39489
