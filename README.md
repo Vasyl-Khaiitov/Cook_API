@@ -2,25 +2,25 @@
 Tasteorama is a RESTful API designed for a culinary web application that allows users to create, save, manage, and explore recipes. Built with Node.js and Express, it provides secure authentication, structured data handling, and a developer-friendly interface.
 
 🚀 Key Features
-- 🔐 Authentication
+🔐 Authentication
 - User registration, login, token refresh, and logout
 - JWT-based authentication with cookie support
 - Protected routes for authorized users only
-- 
-- 🍲 Recipe Management
+  
+🍲 Recipe Management
 - Create, view, update, and delete recipes
 - Save personal recipes and mark favorites
 - Filter recipes by category, region, and ingredients
-- 
-- 🗂️ Categories & Ingredients
+  
+🗂️ Categories & Ingredients
 - Retrieve available categories and ingredient lists
 - Use filters to refine recipe searches
-- 
-- 👤 User Operations
+  
+👤 User Operations
 - Get current user info
 - Manage subscriptions and favorites
-- 
-- 📚 API Documentation
+  
+📚 API Documentation
 - Swagger UI available at /api-docs
 - Fully documented endpoints, request bodies, and responses
 
