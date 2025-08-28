@@ -25,7 +25,7 @@ export const startServer = () => {
   app.use(cookieParser());
   app.use(
     cors({
-      origin: ['http://localhost:3000', 'https://editor.swagger.io'],
+      origin: ['*'],
       methods: ['GET', 'POST', 'PUT', 'DELETE'],
       credentials: true,
     }),
