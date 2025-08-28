@@ -23,16 +23,7 @@ export const startServer = () => {
 
   app.use(express.json());
   app.use(cookieParser());
-  app.use(
-    cors({
-      origin: [
-        'http://localhost:3030',
-        'https://editor.swagger.io',
-        'tasteorama-ten.vercel.app',
-      ],
-      credentials: true,
-    }),
-  );
+  app.use(cors());
   app.use(
     pino({
       transport: {
