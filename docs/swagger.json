@@ -13,10 +13,6 @@
     {
       "url": "https://api.tasteorama.com/v1",
       "description": "Production server"
-    },
-    {
-      "url": "http://localhost:3030",
-      "description": "Local development"
     }
   ],
   "tags": [
@@ -715,8 +711,6 @@
         }
       }
     },
-
-
     "/api/recipes/my": {
       "get": {
         "tags": [
@@ -786,7 +780,6 @@
         }
       }
     },
-
     "/api/recipes/{id}/favorite": {
       "post": {
         "summary": "Add a recipe to user favorites",

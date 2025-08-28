@@ -21,8 +21,6 @@ tags:
 servers:
   - url: https://api.tasteorama.com/v1
     description: Production server
-  - url: http://localhost:3030
-    description: Local development
 paths:
   /api/auth/register:
     post:
