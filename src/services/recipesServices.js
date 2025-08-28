@@ -60,19 +60,40 @@ export const getRecipeByIdServices = async (id) => {
   return recipeById;
 };
 
-export const getFavoritesRecipesById = async (userId, page, perPage) => {
-  const skip = page > 0 ? (page - 1) * perPage : 0;
-  if (userId === null) {
+export const getFavoritesRecipesById = async (
+  userId,
+  page = 1,
+  perPage = 12,
+) => {
+  if (!userId) {
     throw new createHttpError.NotFound('User not found');
   }
-  const user = await UsersCollection.findById(userId).populate({
-    path: 'favorites',
-    options: { skip, limits: perPage },
-  });
+
+  // Забираємо користувача з його улюбленими рецептами
+  const user = await UsersCollection.findById(userId).populate('favorites');
   if (!user) {
     throw new createHttpError.NotFound('User favorites not found');
   }
+
   const totalItems = user.favorites.length;
-  const paginationData = calculatePaginationData(totalItems, perPage, page);
-  return { data: user.favorites, ...paginationData };
+  const totalPages = Math.ceil(totalItems / perPage);
+
+  // Коректуємо сторінку, щоб не виходила за межі
+  const currentPage = Math.min(Math.max(page, 1), totalPages);
+
+  const skip = (currentPage - 1) * perPage;
+  const recipes = user.favorites.slice(skip, skip + perPage); // ручне пагінування
+
+  const hasPreviousPage = currentPage > 1;
+  const hasNextPage = currentPage < totalPages;
+
+  return {
+    data: recipes,
+    page: currentPage,
+    perPage,
+    totalItems,
+    totalPages,
+    hasPreviousPage,
+    hasNextPage,
+  };
 };

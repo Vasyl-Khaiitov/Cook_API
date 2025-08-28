@@ -54,9 +54,12 @@ paths:
   /api/ingredients:
     get:
       $ref: ../src/swagger/paths/ingredients/get.yaml
-  /api/users:
+  /api/currentUser:
     get:
       $ref: ../src/swagger/paths/users/get.yaml
+  /api/recipes/my:
+    get:
+      $ref: ../src/swagger/paths/recipes/my/get.yaml
 
   /api/recipes/{id}/favorite:
     post:
