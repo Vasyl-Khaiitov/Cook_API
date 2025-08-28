@@ -39,7 +39,7 @@ export const startServer = () => {
   );
 
   app.use('/api-docs', swaggerDocs());
-  app.use('/api/users', auth, usersRoutes);
+  app.use('/api/currentUser', auth, usersRoutes);
 
   app.use('/api/auth', authRouter);
 

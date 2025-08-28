@@ -5,9 +5,4 @@ const router = express.Router();
 
 router.get('/', ctrlWrapper(getUserInfoController));
 
-// <<<<<<< delete-recipe
-// router.get('/:userId/favorites', ctrlWrapper(recipesFavoriteController));
-
-// =======
-// >>>>>>> main
 export default router;
