@@ -42,7 +42,7 @@
     }
   ],
   "paths": {
-    "/auth/register": {
+    "/api/auth/register": {
       "post": {
         "tags": [
           "Auth"
@@ -126,7 +126,7 @@
         }
       }
     },
-    "/auth/login": {
+    "/api/auth/login": {
       "post": {
         "tags": [
           "Auth"
@@ -210,7 +210,7 @@
         }
       }
     },
-    "/auth/refresh": {
+    "/api/auth/refresh": {
       "post": {
         "tags": [
           "Auth"
@@ -270,7 +270,7 @@
         }
       }
     },
-    "/auth/logout": {
+    "/api/auth/logout": {
       "post": {
         "tags": [
           "Auth"
@@ -294,7 +294,7 @@
         }
       }
     },
-    "/recipes": {
+    "/api/recipes": {
       "get": {
         "tags": [
           "Recipes"
@@ -511,7 +511,7 @@
         }
       }
     },
-    "/recipes/{id}": {
+    "/api/recipes/{id}": {
       "get": {
         "tags": [
           "Recipes"
@@ -570,7 +570,7 @@
         }
       }
     },
-    "/categories": {
+    "/api/categories": {
       "get": {
         "tags": [
           "Categories"
@@ -617,7 +617,7 @@
         }
       }
     },
-    "/ingredients": {
+    "/api/ingredients": {
       "get": {
         "tags": [
           "Ingredients"
@@ -664,7 +664,7 @@
         }
       }
     },
-    "/api/users": {
+    "/api/currentUser": {
       "get": {
         "tags": [
           "Users"
@@ -715,7 +715,76 @@
         }
       }
     },
-    "/recipes/{id}/favorite": {
+    "/api/recipes/my": {
+      "get": {
+        "tags": [
+          "Recipes"
+        ],
+        "summary": "Get user's own recipes",
+        "description": "Returns a list of recipes created by the authenticated user.",
+        "operationId": "getMyRecipes",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "List of user's recipes",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Your recipes have been successfully received."
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/Recipes"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "404": {
+            "description": "No recipes found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 404
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "You dont have your own recipes"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
+    "/api/recipes/{id}/favorite": {
       "post": {
         "summary": "Add a recipe to user favorites",
         "operationId": "addRecipeToFavorites",
@@ -814,7 +883,7 @@
         }
       }
     },
-    "/recipes/{id}/favorites": {
+    "/api/recipes/{id}/favorites": {
       "get": {
         "tags": [
           "Recipes"
