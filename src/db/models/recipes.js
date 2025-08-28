@@ -34,16 +34,7 @@ const recipesSchema = new Schema(
       type: String,
       required: false,
     },
-    ingredients: [
-      {
-        id: {
-      type: String,
-      ref: 'ingredients',
-      required: true,
-      },
-        measure: { type: String, required: true },
-      },
-    ],
+    ingredients: [{ id: String, measure: { type: String, required: true } }],
   },
   {
     timestamps: true,
