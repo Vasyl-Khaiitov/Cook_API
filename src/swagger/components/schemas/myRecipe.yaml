@@ -23,5 +23,5 @@ properties:
     example: https://cdn.tasteorama.com/images/chicken-soup.png
   owner:
     type: string
-    description: ID користувача, який створив рецепт
+    description: ID of the user who created the recipe
     example: 66d94c28b473c5f948d39489
