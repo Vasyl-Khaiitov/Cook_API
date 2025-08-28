@@ -30,6 +30,7 @@ export const startServer = () => {
         'https://editor.swagger.io',
         'tasteorama-ten.vercel.app',
       ],
+      credentials: true,
     }),
   );
   app.use(
