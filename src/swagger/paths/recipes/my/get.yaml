@@ -23,7 +23,7 @@ get:
               data:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Recipe'
+                  $ref: '#/components/schemas/myRecipe'
     '401':
       $ref: '#/components/responses/401'
     '404':
