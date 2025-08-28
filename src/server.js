@@ -23,12 +23,13 @@ export const startServer = () => {
 
   app.use(express.json());
   app.use(cookieParser());
-  app.use(cors());
-  app.use('/api-docs', swaggerDocs());
-  app.use('/api/users', auth, usersRoutes);
-
-  app.use('/api/auth', authRouter);
-
+  app.use(
+    cors({
+      origin: ['http://localhost:3000', 'https://editor.swagger.io'],
+      methods: ['GET', 'POST', 'PUT', 'DELETE'],
+      credentials: true,
+    }),
+  );
   app.use(
     pino({
       transport: {
@@ -37,12 +38,15 @@ export const startServer = () => {
     }),
   );
 
+  app.use('/api-docs', swaggerDocs());
+  app.use('/api/users', auth, usersRoutes);
+
+  app.use('/api/auth', authRouter);
 
   app.use('/api/categories', categoriesRouter);
   app.use('/api/ingredients', ingredientsRouter);
   app.use('/api/recipes', recipesRouter);
 
-  
   app.use(notFoundHandler);
   app.use(errorHandler);
 
