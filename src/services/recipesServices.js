@@ -3,6 +3,8 @@ import { RecipesCollection } from '../db/models/recipes.js';
 import { calculatePaginationData } from '../utils/calculatePaginationData.js';
 import { UsersCollection } from '../db/models/userModel.js';
 
+
+
 export const postRecipe = async (recipeData) => {
   const newRecipe = await RecipesCollection.create(recipeData);
   return newRecipe;
@@ -21,17 +23,20 @@ export const getRecipesServices = async ({
     userId ? { owner: userId } : {},
   ).populate('category', 'name');
 
+
   if (filter.category) {
     recipesQuery.where('category').equals(filter.category);
   }
 
+
   if (filter.ingredients) {
-    recipesQuery.where('ingredients').all(filter.ingredients);
+  recipesQuery.where('ingredients').elemMatch({ id: filter.ingredients });
   }
 
-  if (filter.title) {
+    if (filter.title) {
     recipesQuery.where('title').regex(new RegExp(filter.title, 'i'));
   }
+
 
   const recipesCount = await RecipesCollection.countDocuments(
     recipesQuery.getFilter(),

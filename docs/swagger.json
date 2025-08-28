@@ -334,9 +334,9 @@
             "name": "ingredients",
             "schema": {
               "type": "string",
-              "example": "65ca70d9ae7f10c88b598399,65ca70d9ae7f10c88b5983aa"
+              "example": "65ca70d9ae7f10c88b598399"
             },
-            "description": "A list of ingredient IDs, to be separated by commas, for filtering recipes"
+            "description": "Ingredient ID for recipe filtering (enter it in the query parameters for filtering)"
           },
           {
             "in": "query",
@@ -715,6 +715,8 @@
         }
       }
     },
+
+
     "/api/recipes/my": {
       "get": {
         "tags": [
@@ -784,6 +786,7 @@
         }
       }
     },
+
     "/api/recipes/{id}/favorite": {
       "post": {
         "summary": "Add a recipe to user favorites",

@@ -26,8 +26,8 @@ parameters:
     name: ingredients
     schema:
       type: string
-      example: '65ca70d9ae7f10c88b598399,65ca70d9ae7f10c88b5983aa'
-    description: A list of ingredient IDs, to be separated by commas, for filtering recipes
+      example: '65ca70d9ae7f10c88b598399'
+    description: Ingredient ID for recipe filtering (enter it in the query parameters for filtering)
   - in: query
     name: title
     schema:
