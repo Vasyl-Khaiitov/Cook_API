@@ -30,8 +30,7 @@ export const getRecipesServices = async ({
 
 
   if (filter.ingredients) {
-    const ingredient = filter.ingredients.map(i => i.trim()).filter(Boolean);
-    recipesQuery.where('ingredients').elemMatch({ id: { $in: ingredient } });
+  recipesQuery.where('ingredients').elemMatch({ id: filter.ingredients });
   }
 
     if (filter.title) {
