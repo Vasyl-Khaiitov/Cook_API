@@ -14,7 +14,7 @@ requestBody:
         required:
           - title
           - category
-          - area
+          - time
           - ingredients
           - instructions
           - description
@@ -27,10 +27,6 @@ requestBody:
             type: string
             description: Category ID (Schema.Types.ObjectId)
             example: '64c8d958249fae54bae90bb9'
-          area:
-            type: string
-            description: Area name
-            example: 'British'
           instructions:
             type: string
             description: Instructions
@@ -39,6 +35,10 @@ requestBody:
             type: string
             description: Description
             example: 'A classic British cake'
+          calories:
+            type: string
+            description: Calories
+            example: '1200'
           time:
             type: string
             description: Time
