@@ -19,7 +19,8 @@ const parseMangoObjectId = (id) => {
 };
 
 export const postRecipeController = async (req, res) => {
-  const { title, category, area, instructions, description } = req.body;
+  const { title, category, calories, time, instructions, description } =
+    req.body;
 
   const thumb = req.file;
 
@@ -37,7 +38,8 @@ export const postRecipeController = async (req, res) => {
     title,
     category: parseMangoObjectId(category),
     owner,
-    area,
+    calories,
+    time,
     instructions,
     description,
     thumb: thumbUrl,

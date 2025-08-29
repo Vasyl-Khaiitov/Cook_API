@@ -41,6 +41,9 @@ content:
             time:
               type: string
               example: '60'
+            calories:
+              type: string
+              example: '1200'
             ingredients:
               type: array
               items:

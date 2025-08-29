@@ -14,7 +14,11 @@ const recipesSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: 'user',
     },
-    area: {
+    calories: {
+      type: String,
+      required: false,
+    },
+    time: {
       type: String,
       required: true,
     },
@@ -27,10 +31,6 @@ const recipesSchema = new Schema(
       required: true,
     },
     thumb: {
-      type: String,
-      required: false,
-    },
-    time: {
       type: String,
       required: false,
     },
