@@ -14,10 +14,13 @@ import { upload } from '../middlewares/multer.js';
 import { validateBody } from '../middlewares/validateBody.js';
 import { recipeSchema } from '../validation/recipeSchema.js';
 import { auth } from '../middlewares/auth.js';
+import { getMyRecipes } from '../controllers/gyo_recipesController.js';
+import { authenticate } from '../middlewares/authenticate.js';
 
 const router = Router();
 
 router.get('/', ctrlWrapper(getRecipesController));
+router.get('/my', authenticate, getMyRecipes);
 router.get('/:id', ctrlWrapper(getRecipeByIdController));
 router.post(
   '/',
@@ -29,7 +32,10 @@ router.post(
 
 router.get('/:id/favorites', auth, ctrlWrapper(recipesFavoriteController));
 router.post('/:id/favorite', auth, ctrlWrapper(addRecipeToFavoritesController));
-router.delete('/:id/favorite', auth, ctrlWrapper(removeRecipeFromFavoritesController));
-
+router.delete(
+  '/:id/favorite',
+  auth,
+  ctrlWrapper(removeRecipeFromFavoritesController),
+);
 
 export default router;
