@@ -15,7 +15,6 @@ export const registerUser = async (payload) => {
   const hashedPassword = await bcrypt.hash(payload.password, 10);
   const accessToken = generateToken();
   const refreshToken = generateToken();
-  console.log('Tokens:', { accessToken, refreshToken });
 
   const newUser = await UsersCollection.create({
     ...payload,
