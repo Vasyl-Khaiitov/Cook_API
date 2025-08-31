@@ -14,13 +14,13 @@ import { upload } from '../middlewares/multer.js';
 import { validateBody } from '../middlewares/validateBody.js';
 import { recipeSchema } from '../validation/recipeSchema.js';
 import { auth } from '../middlewares/auth.js';
-import { getMyRecipes } from '../controllers/gyo_recipesController.js';
+import { getMyRecipesController } from '../controllers/gyo_recipesController.js';
 import { authenticate } from '../middlewares/authenticate.js';
 
 const router = Router();
 
 router.get('/', ctrlWrapper(getRecipesController));
-router.get('/my', authenticate, getMyRecipes);
+router.get('/my', authenticate, ctrlWrapper(getMyRecipesController));
 router.get('/:id', ctrlWrapper(getRecipeByIdController));
 router.post(
   '/',
