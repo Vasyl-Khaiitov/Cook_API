@@ -18,6 +18,9 @@ responses:
               example: 200
             message:
               type: string
+              enum:
+                - Your recipes have been successfully received.
+                - You don`t have any recipes yet.
               example: Your recipes have been successfully received.
             data:
               type: array
@@ -25,18 +28,5 @@ responses:
                 $ref: '../../../components/schemas/Recipes.yaml'
   '401':
     $ref: ../../../components/responses/401.yaml
-  '404':
-    description: No recipes found
-    content:
-      application/json:
-        schema:
-          type: object
-          properties:
-            status:
-              type: integer
-              example: 404
-            message:
-              type: string
-              example: You dont have your own recipes
   '500':
     $ref: ../../../components/responses/500.yaml

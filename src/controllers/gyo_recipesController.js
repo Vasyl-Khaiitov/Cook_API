@@ -1,5 +1,4 @@
 import { RecipesCollection } from '../db/models/recipes.js';
-import createHttpError from 'http-errors';
 export const getMyRecipesController = async (req, res, next) => {
   try {
     const { _id: userId } = req.user;
@@ -12,13 +11,11 @@ export const getMyRecipesController = async (req, res, next) => {
       RecipesCollection.countDocuments({ owner: userId }),
     ]);
 
-    if (!recipes.length) {
-      throw createHttpError(404, 'You don’t have your own recipes');
-    }
-
     res.json({
       status: 200,
-      message: 'Your recipes have been successfully received.',
+      message: recipes.length
+        ? 'Your recipes have been successfully received.'
+        : 'You don`t have any recipes yet.',
       data: recipes,
       total,
     });
