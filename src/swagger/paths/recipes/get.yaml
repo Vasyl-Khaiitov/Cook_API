@@ -15,7 +15,7 @@ parameters:
     name: perPage
     schema:
       type: integer
-      example: 12
+      example: min 12
   - in: query
     name: category
     schema:

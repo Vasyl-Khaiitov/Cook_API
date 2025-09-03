@@ -45,12 +45,11 @@ const ingredientsValidator = Joi.custom((value, helpers) => {
 }, 'Ingredients validation');
 
 export const recipeSchema = Joi.object({
-  title: Joi.string().required(),
+  title: Joi.string().max(50).required(),
   category: objectId.required(),
-  calories: Joi.string().optional(),
-  instructions: Joi.string().required(),
-  description: Joi.string().required(),
-  thumb: Joi.string().uri().optional(),
-  time: Joi.string().required(),
+  calories: Joi.number().min(0).max(10000).integer().optional(),
+  instructions: Joi.string().max(1200).required(),
+  description: Joi.string().max(200).required(),
+  time: Joi.number().min(0).integer().required(),
   ingredients: ingredientsValidator.required(),
 });
