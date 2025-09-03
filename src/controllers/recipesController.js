@@ -69,7 +69,7 @@ export const getRecipesController = async (req, res) => {
   res.json({
     status: 200,
     message: 'Successfully found recipes!',
-    data: recipes,
+    result: recipes,
   });
 };
 
