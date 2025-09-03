@@ -52,7 +52,7 @@ paths:
   /api/ingredients:
     get:
       $ref: ../src/swagger/paths/ingredients/get.yaml
-  /api/currentUser:
+  /api/users/currentUser:
     get:
       $ref: ../src/swagger/paths/users/get.yaml
   /api/recipes/my:
