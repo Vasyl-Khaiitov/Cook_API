@@ -313,7 +313,7 @@
             "name": "perPage",
             "schema": {
               "type": "integer",
-              "example": 12
+              "example": "min 12"
             }
           },
           {
@@ -451,7 +451,7 @@
                 "properties": {
                   "title": {
                     "type": "string",
-                    "description": "Title name",
+                    "description": "Title name (max 50 characters)",
                     "example": "Battenberg Cake"
                   },
                   "category": {
@@ -466,22 +466,22 @@
                   },
                   "description": {
                     "type": "string",
-                    "description": "Description",
+                    "description": "Short description",
                     "example": "A classic British cake"
                   },
                   "calories": {
-                    "type": "string",
+                    "type": "number",
                     "description": "Calories",
-                    "example": "1200"
+                    "example": 1200
                   },
                   "time": {
-                    "type": "string",
-                    "description": "Time",
-                    "example": "60"
+                    "type": "number",
+                    "description": "Time in minutes",
+                    "example": 60
                   },
                   "ingredients": {
                     "type": "string",
-                    "description": "Ingredients (JSON, id - Schema.Types.ObjectId)",
+                    "description": "JSON stringified array of ingredients. Each item must contain `id` (ObjectId) and `measure`.",
                     "example": "[{\"id\":\"640c2dd963a319ea671e367e\",\"measure\":\"175g\"}]"
                   },
                   "thumb": {
